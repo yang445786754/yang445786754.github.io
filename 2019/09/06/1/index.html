@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>分类 - 机器学习 ~ Tony&#39;s Blog</title>
+    <title>1 ~ Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,13 +77,16 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
                     <span class="h2" id="subtitle">
                         
                     </span>
+                    
+                        <br>
+                        <p>星期五, 九月 6日 2019, 1:10 下午</p>
                     
                 </div>
             </div>
@@ -93,57 +96,101 @@
 
 <main>
     
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
-                            
+        
 
-<div class="list-group">
-    <p class="h4">共计 5 篇文章</p>
-    <hr>
-    
-        
-            
-            <p class="h5">2019</p>
-        
-        <a href="/2019/09/06/1/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">1</span>
-            <span style="float: right;">09-06</span>
-        </a>
-    
-        
-        <a href="/2019/09/06/神经网络-Erro-Metrics-for-Skewed-Classes/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">神经网络-Error Metrics for Skewed Classes</span>
-            <span style="float: right;">09-06</span>
-        </a>
-    
-        
-        <a href="/2019/09/06/神经网络-Cross-Validation/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">神经网络-Cross Validation</span>
-            <span style="float: right;">09-06</span>
-        </a>
-    
-        
-        <a href="/2019/09/06/神经网络-Random-Initialization/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">神经网络-Random Initialization</span>
-            <span style="float: right;">09-06</span>
-        </a>
-    
-        
-        <a href="/2019/08/23/MachineLearning-with-SK-AND-TF-1-端到端的机器学习项目/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MachineLearning with SK AND TF (1_端到端的机器学习项目)</span>
-            <span style="float: right;">08-23</span>
-        </a>
-    
-</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>如果我们拥有的数据集是一批有极大偏差的数据集，比如癌症预测数据集，人类得癌症的几率是极低的，在这个数据集的测试集上我们获得了99%的正确率1%的错误率。</p>
+<p>但我们查看了我们的数据集仅有很少量比如0.5%的人真正得了癌症。这就形成了很大的比例，在我们错误为1%的情况下，这个模型就显得并不是那么好，因此我们需要更好的判断误差的算法去评估我们模型的好坏。</p>
+<h1 id="精度-precision-召回率-recall"><a href="#精度-precision-召回率-recall" class="headerlink" title="精度(precision)/ 召回率(recall)"></a>精度(precision)/ 召回率(recall)</h1><p>列区分的的是真实值的 分类 ，行区分的是预测值的 分类。比如True positive 是真实值为1 预测值也为1的 正确分类结果数，False positive 是真实值为1预测值为0的 错误分类结果数。</p>
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>actual 1</th>
+<th>actual 0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>predict 1</td>
+<td>True positive</td>
+<td>False positive</td>
+</tr>
+<tr>
+<td>predict 0</td>
+<td>False negative</td>
+<td>True negative</td>
+</tr>
+</tbody></table>
+<p>我们就有了新的一种方式来评估我们的模型</p>
+<h2 id="精度-precision"><a href="#精度-precision" class="headerlink" title="精度(precision)"></a>精度(precision)</h2><p>解释：在我们模型预测为患有癌症的所有人当中，我们正确预测的比例</p>
+<!-- $$ Precision = \frac{True positive}{predict positive} = \frac{True positive}{True positive + False positive} $$ -->
+<p><img src="1/precision.png" alt="precision"></p>
+<p>精度越高，模型就越好</p>
+<h2 id="召回率-recall"><a href="#召回率-recall" class="headerlink" title="召回率(recall)"></a>召回率(recall)</h2><p>解释：在所有真正患癌症的人当中，我们正确预测到他们患癌症的比例</p>
+<!-- $$ Recall = \frac{True positive}{Actual positive} = \frac{True positive}{True positive + False negative} $$ -->
+<p><img src="1/recall.png" alt="recall"></p>
+<h2 id="F1-Score"><a href="#F1-Score" class="headerlink" title="F1-Score"></a>F1-Score</h2><!-- $$ F1-Score = 2 x \frac{Precision x recall}{Precision + recall}$$ -->
+<p><img src="1/f1.png" alt="F1-Score"></p>
+<h2 id="Accuracy"><a href="#Accuracy" class="headerlink" title="Accuracy"></a>Accuracy</h2><p>不得不提之前使用的准确率，就是预测正确的数量在整个数据集上的比例</p>
+<!-- $$Accuracy = \frac{True positive + False positive}{True positive + False positive + False negative + True negative}$$ -->
+<p><img src="1/accuracy.png" alt="Accuracy"></p>
+<p>在偏差较为大的情况，比如病情预测，我们使用F1-Score会能够更好的评估我们的模型</p>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
         </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
     
 </main>
 
@@ -188,6 +235,11 @@
 <script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
 <script src="/js/main.js"></script>
 
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
     <script>
@@ -203,7 +255,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "分类 - 机器学习&nbsp;",
+                "1&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,
