@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="杨乘 Blog">
+    <meta name="author" content="Tony">
+    <meta name="keywords" content>
+    <title>MachineLearning with SK AND TF (1_端到端的机器学习项目) ~ Tony&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期五, 八月 23日 2019, 11:53 晚上</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <pre><code class="python"># download dataset
+import os
+import tarfile
+import urllib
+
+DOWNLOAD_ROOT = &quot;http://raw.githubusercontent.com/ageron/handson-ml/master/&quot;
+HOUSING_PATH = &quot;datasets/housing&quot;
+HOUSING_URL = DOWNLOAD_ROOT + HOUSING_PATH + &quot;/housing.tgz&quot;
+print(HOUSING_URL)
+
+def fetch_housing_data(housing_url = HOUSING_URL,housing_path = HOUSING_PATH):
+    if not os.path.isdir(housing_path):
+        os.makedirs(housing_path)
+    tgz_path = os.path.join(housing_path,&quot;housing.tgz&quot;)
+    urllib.request.urlretrieve(housing_url,tgz_path)
+    housing_tgz = tarfile.open(tgz_path)
+    housing_tgz.extractall(path=housing_path)
+    housing_tgz.close()</code></pre>
+<pre><code>http://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.tgz</code></pre><pre><code class="python"># load data
+import pandas as pd
+
+def load_housing_data(housing_path = HOUSING_PATH):
+    csv_path = os.path.join(housing_path, &quot;housing.csv&quot;)
+    return pd.read_csv(csv_path)</code></pre>
+<pre><code class="python"># 调用
+if not os.path.isfile(HOUSING_PATH):
+    fetch_housing_data()
+housing = load_housing_data()
+housing</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>housing_median_age</th>
+      <th>total_rooms</th>
+      <th>total_bedrooms</th>
+      <th>population</th>
+      <th>households</th>
+      <th>median_income</th>
+      <th>median_house_value</th>
+      <th>ocean_proximity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-122.23</td>
+      <td>37.88</td>
+      <td>41.0</td>
+      <td>880.0</td>
+      <td>129.0</td>
+      <td>322.0</td>
+      <td>126.0</td>
+      <td>8.3252</td>
+      <td>452600.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-122.22</td>
+      <td>37.86</td>
+      <td>21.0</td>
+      <td>7099.0</td>
+      <td>1106.0</td>
+      <td>2401.0</td>
+      <td>1138.0</td>
+      <td>8.3014</td>
+      <td>358500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-122.24</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>1467.0</td>
+      <td>190.0</td>
+      <td>496.0</td>
+      <td>177.0</td>
+      <td>7.2574</td>
+      <td>352100.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-122.25</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>1274.0</td>
+      <td>235.0</td>
+      <td>558.0</td>
+      <td>219.0</td>
+      <td>5.6431</td>
+      <td>341300.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-122.25</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>1627.0</td>
+      <td>280.0</td>
+      <td>565.0</td>
+      <td>259.0</td>
+      <td>3.8462</td>
+      <td>342200.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>-122.25</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>919.0</td>
+      <td>213.0</td>
+      <td>413.0</td>
+      <td>193.0</td>
+      <td>4.0368</td>
+      <td>269700.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>-122.25</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>2535.0</td>
+      <td>489.0</td>
+      <td>1094.0</td>
+      <td>514.0</td>
+      <td>3.6591</td>
+      <td>299200.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>-122.25</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>3104.0</td>
+      <td>687.0</td>
+      <td>1157.0</td>
+      <td>647.0</td>
+      <td>3.1200</td>
+      <td>241400.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>-122.26</td>
+      <td>37.84</td>
+      <td>42.0</td>
+      <td>2555.0</td>
+      <td>665.0</td>
+      <td>1206.0</td>
+      <td>595.0</td>
+      <td>2.0804</td>
+      <td>226700.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>-122.25</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>3549.0</td>
+      <td>707.0</td>
+      <td>1551.0</td>
+      <td>714.0</td>
+      <td>3.6912</td>
+      <td>261100.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>-122.26</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>2202.0</td>
+      <td>434.0</td>
+      <td>910.0</td>
+      <td>402.0</td>
+      <td>3.2031</td>
+      <td>281500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>-122.26</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>3503.0</td>
+      <td>752.0</td>
+      <td>1504.0</td>
+      <td>734.0</td>
+      <td>3.2705</td>
+      <td>241800.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-122.26</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>2491.0</td>
+      <td>474.0</td>
+      <td>1098.0</td>
+      <td>468.0</td>
+      <td>3.0750</td>
+      <td>213500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>-122.26</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>696.0</td>
+      <td>191.0</td>
+      <td>345.0</td>
+      <td>174.0</td>
+      <td>2.6736</td>
+      <td>191300.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>-122.26</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>2643.0</td>
+      <td>626.0</td>
+      <td>1212.0</td>
+      <td>620.0</td>
+      <td>1.9167</td>
+      <td>159200.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>-122.26</td>
+      <td>37.85</td>
+      <td>50.0</td>
+      <td>1120.0</td>
+      <td>283.0</td>
+      <td>697.0</td>
+      <td>264.0</td>
+      <td>2.1250</td>
+      <td>140000.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>-122.27</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>1966.0</td>
+      <td>347.0</td>
+      <td>793.0</td>
+      <td>331.0</td>
+      <td>2.7750</td>
+      <td>152500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>-122.27</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>1228.0</td>
+      <td>293.0</td>
+      <td>648.0</td>
+      <td>303.0</td>
+      <td>2.1202</td>
+      <td>155500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>-122.26</td>
+      <td>37.84</td>
+      <td>50.0</td>
+      <td>2239.0</td>
+      <td>455.0</td>
+      <td>990.0</td>
+      <td>419.0</td>
+      <td>1.9911</td>
+      <td>158700.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>-122.27</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>1503.0</td>
+      <td>298.0</td>
+      <td>690.0</td>
+      <td>275.0</td>
+      <td>2.6033</td>
+      <td>162900.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>-122.27</td>
+      <td>37.85</td>
+      <td>40.0</td>
+      <td>751.0</td>
+      <td>184.0</td>
+      <td>409.0</td>
+      <td>166.0</td>
+      <td>1.3578</td>
+      <td>147500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>-122.27</td>
+      <td>37.85</td>
+      <td>42.0</td>
+      <td>1639.0</td>
+      <td>367.0</td>
+      <td>929.0</td>
+      <td>366.0</td>
+      <td>1.7135</td>
+      <td>159800.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>-122.27</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>2436.0</td>
+      <td>541.0</td>
+      <td>1015.0</td>
+      <td>478.0</td>
+      <td>1.7250</td>
+      <td>113900.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>-122.27</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>1688.0</td>
+      <td>337.0</td>
+      <td>853.0</td>
+      <td>325.0</td>
+      <td>2.1806</td>
+      <td>99700.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>-122.27</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>2224.0</td>
+      <td>437.0</td>
+      <td>1006.0</td>
+      <td>422.0</td>
+      <td>2.6000</td>
+      <td>132600.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>-122.28</td>
+      <td>37.85</td>
+      <td>41.0</td>
+      <td>535.0</td>
+      <td>123.0</td>
+      <td>317.0</td>
+      <td>119.0</td>
+      <td>2.4038</td>
+      <td>107500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>-122.28</td>
+      <td>37.85</td>
+      <td>49.0</td>
+      <td>1130.0</td>
+      <td>244.0</td>
+      <td>607.0</td>
+      <td>239.0</td>
+      <td>2.4597</td>
+      <td>93800.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>-122.28</td>
+      <td>37.85</td>
+      <td>52.0</td>
+      <td>1898.0</td>
+      <td>421.0</td>
+      <td>1102.0</td>
+      <td>397.0</td>
+      <td>1.8080</td>
+      <td>105500.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>-122.28</td>
+      <td>37.84</td>
+      <td>50.0</td>
+      <td>2082.0</td>
+      <td>492.0</td>
+      <td>1131.0</td>
+      <td>473.0</td>
+      <td>1.6424</td>
+      <td>108900.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>-122.28</td>
+      <td>37.84</td>
+      <td>52.0</td>
+      <td>729.0</td>
+      <td>160.0</td>
+      <td>395.0</td>
+      <td>155.0</td>
+      <td>1.6875</td>
+      <td>132000.0</td>
+      <td>NEAR BAY</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>20610</th>
+      <td>-121.56</td>
+      <td>39.10</td>
+      <td>28.0</td>
+      <td>2130.0</td>
+      <td>484.0</td>
+      <td>1195.0</td>
+      <td>439.0</td>
+      <td>1.3631</td>
+      <td>45500.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20611</th>
+      <td>-121.55</td>
+      <td>39.10</td>
+      <td>27.0</td>
+      <td>1783.0</td>
+      <td>441.0</td>
+      <td>1163.0</td>
+      <td>409.0</td>
+      <td>1.2857</td>
+      <td>47000.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20612</th>
+      <td>-121.56</td>
+      <td>39.08</td>
+      <td>26.0</td>
+      <td>1377.0</td>
+      <td>289.0</td>
+      <td>761.0</td>
+      <td>267.0</td>
+      <td>1.4934</td>
+      <td>48300.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20613</th>
+      <td>-121.55</td>
+      <td>39.09</td>
+      <td>31.0</td>
+      <td>1728.0</td>
+      <td>365.0</td>
+      <td>1167.0</td>
+      <td>384.0</td>
+      <td>1.4958</td>
+      <td>53400.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20614</th>
+      <td>-121.54</td>
+      <td>39.08</td>
+      <td>26.0</td>
+      <td>2276.0</td>
+      <td>460.0</td>
+      <td>1455.0</td>
+      <td>474.0</td>
+      <td>2.4695</td>
+      <td>58000.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20615</th>
+      <td>-121.54</td>
+      <td>39.08</td>
+      <td>23.0</td>
+      <td>1076.0</td>
+      <td>216.0</td>
+      <td>724.0</td>
+      <td>197.0</td>
+      <td>2.3598</td>
+      <td>57500.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20616</th>
+      <td>-121.53</td>
+      <td>39.08</td>
+      <td>15.0</td>
+      <td>1810.0</td>
+      <td>441.0</td>
+      <td>1157.0</td>
+      <td>375.0</td>
+      <td>2.0469</td>
+      <td>55100.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20617</th>
+      <td>-121.53</td>
+      <td>39.06</td>
+      <td>20.0</td>
+      <td>561.0</td>
+      <td>109.0</td>
+      <td>308.0</td>
+      <td>114.0</td>
+      <td>3.3021</td>
+      <td>70800.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20618</th>
+      <td>-121.55</td>
+      <td>39.06</td>
+      <td>25.0</td>
+      <td>1332.0</td>
+      <td>247.0</td>
+      <td>726.0</td>
+      <td>226.0</td>
+      <td>2.2500</td>
+      <td>63400.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20619</th>
+      <td>-121.56</td>
+      <td>39.01</td>
+      <td>22.0</td>
+      <td>1891.0</td>
+      <td>340.0</td>
+      <td>1023.0</td>
+      <td>296.0</td>
+      <td>2.7303</td>
+      <td>99100.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20620</th>
+      <td>-121.48</td>
+      <td>39.05</td>
+      <td>40.0</td>
+      <td>198.0</td>
+      <td>41.0</td>
+      <td>151.0</td>
+      <td>48.0</td>
+      <td>4.5625</td>
+      <td>100000.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20621</th>
+      <td>-121.47</td>
+      <td>39.01</td>
+      <td>37.0</td>
+      <td>1244.0</td>
+      <td>247.0</td>
+      <td>484.0</td>
+      <td>157.0</td>
+      <td>2.3661</td>
+      <td>77500.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20622</th>
+      <td>-121.44</td>
+      <td>39.00</td>
+      <td>20.0</td>
+      <td>755.0</td>
+      <td>147.0</td>
+      <td>457.0</td>
+      <td>157.0</td>
+      <td>2.4167</td>
+      <td>67000.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20623</th>
+      <td>-121.37</td>
+      <td>39.03</td>
+      <td>32.0</td>
+      <td>1158.0</td>
+      <td>244.0</td>
+      <td>598.0</td>
+      <td>227.0</td>
+      <td>2.8235</td>
+      <td>65500.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20624</th>
+      <td>-121.41</td>
+      <td>39.04</td>
+      <td>16.0</td>
+      <td>1698.0</td>
+      <td>300.0</td>
+      <td>731.0</td>
+      <td>291.0</td>
+      <td>3.0739</td>
+      <td>87200.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20625</th>
+      <td>-121.52</td>
+      <td>39.12</td>
+      <td>37.0</td>
+      <td>102.0</td>
+      <td>17.0</td>
+      <td>29.0</td>
+      <td>14.0</td>
+      <td>4.1250</td>
+      <td>72000.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20626</th>
+      <td>-121.43</td>
+      <td>39.18</td>
+      <td>36.0</td>
+      <td>1124.0</td>
+      <td>184.0</td>
+      <td>504.0</td>
+      <td>171.0</td>
+      <td>2.1667</td>
+      <td>93800.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20627</th>
+      <td>-121.32</td>
+      <td>39.13</td>
+      <td>5.0</td>
+      <td>358.0</td>
+      <td>65.0</td>
+      <td>169.0</td>
+      <td>59.0</td>
+      <td>3.0000</td>
+      <td>162500.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20628</th>
+      <td>-121.48</td>
+      <td>39.10</td>
+      <td>19.0</td>
+      <td>2043.0</td>
+      <td>421.0</td>
+      <td>1018.0</td>
+      <td>390.0</td>
+      <td>2.5952</td>
+      <td>92400.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20629</th>
+      <td>-121.39</td>
+      <td>39.12</td>
+      <td>28.0</td>
+      <td>10035.0</td>
+      <td>1856.0</td>
+      <td>6912.0</td>
+      <td>1818.0</td>
+      <td>2.0943</td>
+      <td>108300.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20630</th>
+      <td>-121.32</td>
+      <td>39.29</td>
+      <td>11.0</td>
+      <td>2640.0</td>
+      <td>505.0</td>
+      <td>1257.0</td>
+      <td>445.0</td>
+      <td>3.5673</td>
+      <td>112000.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20631</th>
+      <td>-121.40</td>
+      <td>39.33</td>
+      <td>15.0</td>
+      <td>2655.0</td>
+      <td>493.0</td>
+      <td>1200.0</td>
+      <td>432.0</td>
+      <td>3.5179</td>
+      <td>107200.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20632</th>
+      <td>-121.45</td>
+      <td>39.26</td>
+      <td>15.0</td>
+      <td>2319.0</td>
+      <td>416.0</td>
+      <td>1047.0</td>
+      <td>385.0</td>
+      <td>3.1250</td>
+      <td>115600.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20633</th>
+      <td>-121.53</td>
+      <td>39.19</td>
+      <td>27.0</td>
+      <td>2080.0</td>
+      <td>412.0</td>
+      <td>1082.0</td>
+      <td>382.0</td>
+      <td>2.5495</td>
+      <td>98300.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20634</th>
+      <td>-121.56</td>
+      <td>39.27</td>
+      <td>28.0</td>
+      <td>2332.0</td>
+      <td>395.0</td>
+      <td>1041.0</td>
+      <td>344.0</td>
+      <td>3.7125</td>
+      <td>116800.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20635</th>
+      <td>-121.09</td>
+      <td>39.48</td>
+      <td>25.0</td>
+      <td>1665.0</td>
+      <td>374.0</td>
+      <td>845.0</td>
+      <td>330.0</td>
+      <td>1.5603</td>
+      <td>78100.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20636</th>
+      <td>-121.21</td>
+      <td>39.49</td>
+      <td>18.0</td>
+      <td>697.0</td>
+      <td>150.0</td>
+      <td>356.0</td>
+      <td>114.0</td>
+      <td>2.5568</td>
+      <td>77100.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20637</th>
+      <td>-121.22</td>
+      <td>39.43</td>
+      <td>17.0</td>
+      <td>2254.0</td>
+      <td>485.0</td>
+      <td>1007.0</td>
+      <td>433.0</td>
+      <td>1.7000</td>
+      <td>92300.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20638</th>
+      <td>-121.32</td>
+      <td>39.43</td>
+      <td>18.0</td>
+      <td>1860.0</td>
+      <td>409.0</td>
+      <td>741.0</td>
+      <td>349.0</td>
+      <td>1.8672</td>
+      <td>84700.0</td>
+      <td>INLAND</td>
+    </tr>
+    <tr>
+      <th>20639</th>
+      <td>-121.24</td>
+      <td>39.37</td>
+      <td>16.0</td>
+      <td>2785.0</td>
+      <td>616.0</td>
+      <td>1387.0</td>
+      <td>530.0</td>
+      <td>2.3886</td>
+      <td>89400.0</td>
+      <td>INLAND</td>
+    </tr>
+  </tbody>
+</table>
+<p>20640 rows × 10 columns</p>
+</div>
+
+
+
+
+<pre><code class="python">housing.info()</code></pre>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 20640 entries, 0 to 20639
+Data columns (total 10 columns):
+longitude             20640 non-null float64
+latitude              20640 non-null float64
+housing_median_age    20640 non-null float64
+total_rooms           20640 non-null float64
+total_bedrooms        20433 non-null float64
+population            20640 non-null float64
+households            20640 non-null float64
+median_income         20640 non-null float64
+median_house_value    20640 non-null float64
+ocean_proximity       20640 non-null object
+dtypes: float64(9), object(1)
+memory usage: 1.6+ MB</code></pre><pre><code class="python"># 查看数据集
+housing.describe()</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>housing_median_age</th>
+      <th>total_rooms</th>
+      <th>total_bedrooms</th>
+      <th>population</th>
+      <th>households</th>
+      <th>median_income</th>
+      <th>median_house_value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20433.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>-119.569704</td>
+      <td>35.631861</td>
+      <td>28.639486</td>
+      <td>2635.763081</td>
+      <td>537.870553</td>
+      <td>1425.476744</td>
+      <td>499.539680</td>
+      <td>3.870671</td>
+      <td>206855.816909</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>2.003532</td>
+      <td>2.135952</td>
+      <td>12.585558</td>
+      <td>2181.615252</td>
+      <td>421.385070</td>
+      <td>1132.462122</td>
+      <td>382.329753</td>
+      <td>1.899822</td>
+      <td>115395.615874</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-124.350000</td>
+      <td>32.540000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>0.499900</td>
+      <td>14999.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>-121.800000</td>
+      <td>33.930000</td>
+      <td>18.000000</td>
+      <td>1447.750000</td>
+      <td>296.000000</td>
+      <td>787.000000</td>
+      <td>280.000000</td>
+      <td>2.563400</td>
+      <td>119600.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>-118.490000</td>
+      <td>34.260000</td>
+      <td>29.000000</td>
+      <td>2127.000000</td>
+      <td>435.000000</td>
+      <td>1166.000000</td>
+      <td>409.000000</td>
+      <td>3.534800</td>
+      <td>179700.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>-118.010000</td>
+      <td>37.710000</td>
+      <td>37.000000</td>
+      <td>3148.000000</td>
+      <td>647.000000</td>
+      <td>1725.000000</td>
+      <td>605.000000</td>
+      <td>4.743250</td>
+      <td>264725.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>-114.310000</td>
+      <td>41.950000</td>
+      <td>52.000000</td>
+      <td>39320.000000</td>
+      <td>6445.000000</td>
+      <td>35682.000000</td>
+      <td>6082.000000</td>
+      <td>15.000100</td>
+      <td>500001.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<pre><code class="python">%matplotlib inline
+import matplotlib.pyplot as plt
+housing.hist(bins=50, figsize=(20,15))
+plt.show()</code></pre>
+<p><img src="output_5_0.png" alt="png"></p>
+<pre><code class="python"># Prpare data
+
+## Train Test split
+from sklearn.model_selection import train_test_split
+train_set, test_set = train_test_split(housing,test_size=0.2 , random_state = 42)</code></pre>
+<pre><code class="python"># 上面的方法的缺陷，对于某个数据集，我们不能保证训练集和测试集都有这个字段的每个类别，因此我们需要按照下列方法使用分层抽样的方法对训练测试数据集进行分割割
+## 分层抽样 对income_cat进行抽样
+import numpy as np
+### 根据收入分层，变成几个类别，数据集乘1.5限制收入类别数量，使用ceil对数据集进行取整，得到离散类别
+housing[&quot;income_cat&quot;] = np.ceil(housing[&quot;median_income&quot;] / 1.5)
+housing[&quot;income_cat&quot;].where(housing[&quot;income_cat&quot;] &lt;5 ,5.0, inplace = True) # where 替换大于等于5.0的数据为5.0
+
+# 对incomg收入进行分类以后，进行分层抽样
+from sklearn.model_selection import StratifiedShuffleSplit # 分层洗牌拆分
+split = StratifiedShuffleSplit(n_splits=1, test_size=0.2,random_state = 42)
+
+for train_index, test_index in split.split(housing, housing[&quot;income_cat&quot;]): # 在数据集中使用income_cat 对housing进行分层抽样
+    strat_train_set = housing.loc[train_index]
+    strat_test_set = housing.loc[test_index]
+
+# 查看数据集中每个分层所占比例
+housing[&quot;income_cat&quot;].value_counts() / len(housing)
+</code></pre>
+<pre><code>3.0    0.350581
+2.0    0.318847
+4.0    0.176308
+5.0    0.114438
+1.0    0.039826
+Name: income_cat, dtype: float64</code></pre><pre><code class="python"># drop income_cat
+for setdt in (strat_train_set,strat_test_set):
+    setdt.drop([&#39;income_cat&#39;],axis = 1 , inplace = True)</code></pre>
+<pre><code class="python">housing = strat_train_set.copy()
+housing.plot(kind = &quot;scatter&quot;, x=&quot;longitude&quot;, y=&quot;latitude&quot;,alpha = 0.4,
+            s = housing[&quot;population&quot;]/100,label = &quot;population&quot;,
+            c = &quot;median_house_value&quot;,cmap = plt.get_cmap(&quot;jet&quot;),colorbar = True)
+plt.legend()</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x142354e0&gt;</code></pre><p><img src="output_9_1.png" alt="png"></p>
+<pre><code class="python"># 数据集不大，可以使用corr()函数计算没对属性之间“标准相关系数（皮尔逊相关系数）”
+corr_metrix = housing.corr()
+corr_metrix[&quot;median_house_value&quot;].sort_values(ascending = False)</code></pre>
+<pre><code>median_house_value    1.000000
+median_income         0.687160
+total_rooms           0.135097
+housing_median_age    0.114110
+households            0.064506
+total_bedrooms        0.047689
+population           -0.026920
+longitude            -0.047432
+latitude             -0.142724
+Name: median_house_value, dtype: float64</code></pre><pre><code class="python">from pandas.plotting import scatter_matrix
+# scatter_matrix 绘制出每个数值属性相对于其他数值属性的相关性，在此我们有11个数值属性，可以得到11**2 = 121图像，我们可以选取相应的数值展示
+attributes = [&quot;median_house_value&quot;,&quot;median_income&quot;,&quot;total_rooms&quot;,&quot;housing_median_age&quot;]
+scatter_matrix(housing[attributes],figsize = (12,8))
+# 在对角线上原本为自身对照，这没有意义，因此，pandas取而代之的是每个属性的直方图</code></pre>
+<pre><code>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x000000001495A630&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000000001470D048&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x00000000147326D8&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014758D68&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x000000001478B438&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000000001478B470&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014AB5160&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014ADE7F0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014B07E80&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014B38550&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014B5FBE0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014B922B0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014DAA940&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014DD1FD0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x0000000014E036A0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x000000001504CD30&gt;]],
+      dtype=object)</code></pre><p><img src="output_11_1.png" alt="png"></p>
+<pre><code class="python"># 尝试根据现有数据集创建新的觉得有用的数据
+housing[&quot;rooms_per_household&quot;] = housing[&quot;total_rooms&quot;] / housing[&quot;households&quot;]
+housing[&quot;bedrooms_per_room&quot;] = housing[&quot;total_bedrooms&quot;] / housing[&quot;total_rooms&quot;]
+housing[&quot;population_per_household&quot;] = housing[&quot;population&quot;] / housing[&quot;households&quot;]</code></pre>
+<hr>
+<pre><code class="python"># 重新获取一组新数据我们用来处理
+housing = strat_train_set.drop(&quot;median_house_value&quot;,axis = 1)
+housing_labels = strat_train_set[&quot;median_house_value&quot;].copy()
+housing.info()
+housing.shape</code></pre>
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 16512 entries, 17606 to 15775
+Data columns (total 9 columns):
+longitude             16512 non-null float64
+latitude              16512 non-null float64
+housing_median_age    16512 non-null float64
+total_rooms           16512 non-null float64
+total_bedrooms        16354 non-null float64
+population            16512 non-null float64
+households            16512 non-null float64
+median_income         16512 non-null float64
+ocean_proximity       16512 non-null object
+dtypes: float64(8), object(1)
+memory usage: 1.3+ MB
+
+
+
+
+
+(16512, 9)</code></pre><pre><code class="python"># 处理数值属性
+## 对于属性缺失的问题，如上面的total_badrooms属性:
+# housing.dropna(subset=[&quot;total_bedrooms&quot;])### 放弃相应地区
+
+# housing.drop(&quot;total_bedrooms&quot;,axis =1)### 放弃这个属性
+
+# median = housing[&quot;total_bedrooms&quot;].median()
+# housing[&quot;total_bedrooms&quot;].fillna(median)### 将缺失属性设置为某个默认值（0，平均数，中位数）
+
+from sklearn.preprocessing import Imputer
+# 不确定其他属性值是否会存在缺失值，就把inputer应用于所有属性
+imputer = Imputer(strategy = &quot;median&quot;)### 使用sklearn中的api可以轻松实现第三种
+housing_num = housing.drop(&quot;ocean_proximity&quot;,axis = 1) # 创建临时数据集，该数据集没有文本属性
+imputer.fit(housing_num) # inputer将处理后的中位数存放于statistics_中
+X = imputer.transform(housing_num) # 回传numpy数组
+housing_tr = pd.DataFrame(X,columns=housing_num.columns) # 转为pandas</code></pre>
+<pre><code class="python"># 处理文本和分类属性
+housing_cat = housing[&quot;ocean_proximity&quot;]
+&quot;&quot;&quot;
+## sklearn提供LabelEncoder
+from sklearn.preprocessing import LabelEncoder
+encoder = LabelEncoder()
+housing_cat_encoded = encoder.fit_transform(housing_cat)
+housing_cat_encoded
+## 将label转为onehot编码
+from sklearn.preprocessing import OneHotEncoder
+encoder = OneHotEncoder()
+housing_cat_1hot = encoder.fit_transform(housing_cat_encoded.reshape(-1,1))
+housing_cat_1hot.toarray()
+&quot;&quot;&quot;
+# LabelBinarizer 
+from sklearn.preprocessing import LabelBinarizer
+encoder = LabelBinarizer()
+housing_cat_1hot = encoder.fit_transform(housing_cat)
+
+# 我们可以自定义转换器
+from sklearn.base import BaseEstimator,TransformerMixin
+rooms_ix, bedrooms_ix,population_ix, household_ix = 3,4,5,6
+class CombinedAttributesAdder(BaseEstimator,TransformerMixin):
+    def __init__(self, add_bedrooms_per_rooms = True):
+        self.add_bedrooms_per_rooms = add_bedrooms_per_rooms
+    def fit(self,X,y = None):
+        return self
+    def transform(self,X,y = None):
+        rooms_per_household = X[:,rooms_ix] / X[:,household_ix]
+        population_per_household = X[:,population_ix] / X[:,household_ix]
+        if self.add_bedrooms_per_rooms:
+            bedrooms_per_rooms = X[:,bedrooms_ix] / X[:,rooms_ix]
+            return np.c_[X,rooms_per_household,population_per_household,bedrooms_per_rooms]
+        else:
+            return np.c_[X,rooms_per_household,population_per_household]
+sttr_adder = CombinedAttributesAdder(add_bedrooms_per_rooms = False)
+housing_extra_attribs = sttr_adder.transform(housing.values)</code></pre>
+<pre><code class="python">## 使用pipeline创建流水线转换处理数据
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler # 数据标准化
+
+num_pipeline = Pipeline([
+    (&#39;imputer&#39;, Imputer(strategy=&#39;median&#39;)),
+    (&#39;attribs_adder&#39;, CombinedAttributesAdder()),
+    (&#39;std_scaler&#39;,StandardScaler())
+
+])
+# 每个转换器都需要有fit_transform方法，调用fit函数则会按照顺序执行fit_transform(),如果不希望调用完fit()后再调用transform，可以直接调用fit_transform
+housing_num_tr = num_pipeline.fit_transform(housing_num)
+
+class DataFrameSelector(BaseEstimator,TransformerMixin):
+    def __init__(self,attribute_names):
+        self.attribute_names = attribute_names
+    def fit(self,X,y = None):
+        return self
+    def transform(self,X,y = None):
+        return X[self.attribute_names].values
+
+# 由于LabelBinarizer默认传参为2，后面调用会报错，可以定义一个自己的LabelBinarizer类
+class MyLabelBinarizer(TransformerMixin):
+    def __init__(self,*args, **kwargs):
+        self.encoder = LabelBinarizer(*args, **kwargs)
+    def fit(self,X,y = None):
+        self.encoder.fit(X)
+        return self
+    def transform(self,X,y = None):
+        return self.encoder.transform(X)
+
+
+# 如果有多个pipeline，我们可以使用如下方法进行拼接
+from sklearn.pipeline import FeatureUnion
+num_attribs = list(housing_num)
+cat_attribs = [&#39;ocean_proximity&#39;]
+
+num_pipeline = Pipeline([
+    (&#39;selector&#39;, DataFrameSelector(num_attribs)),
+    (&#39;imputer&#39;, Imputer(strategy=&#39;median&#39;)),
+    (&#39;attribs_adder&#39;, CombinedAttributesAdder()),
+    (&#39;std_scaler&#39;,StandardScaler())
+])
+cat_pipeline = Pipeline([
+    (&#39;selector&#39;,DataFrameSelector(cat_attribs)),
+    (&#39;label_binarizer&#39;, MyLabelBinarizer()),
+])
+full_pipeline = FeatureUnion(transformer_list = [
+    (&quot;num_pipeline&quot;,num_pipeline),
+    (&quot;cat_pipeline&quot;,cat_pipeline),
+])
+
+housing_prepared = full_pipeline.fit_transform(housing)
+print(housing_prepared)
+print(housing_prepared.shape)
+print(housing_prepared[0])</code></pre>
+<pre><code>[[-1.15604281  0.77194962  0.74333089 ...  0.          0.
+   0.        ]
+ [-1.17602483  0.6596948  -1.1653172  ...  0.          0.
+   0.        ]
+ [ 1.18684903 -1.34218285  0.18664186 ...  0.          0.
+   1.        ]
+ ...
+ [ 1.58648943 -0.72478134 -1.56295222 ...  0.          0.
+   0.        ]
+ [ 0.78221312 -0.85106801  0.18664186 ...  0.          0.
+   0.        ]
+ [-1.43579109  0.99645926  1.85670895 ...  0.          1.
+   0.        ]]
+(16512, 16)
+[-1.15604281  0.77194962  0.74333089 -0.49323393 -0.44543821 -0.63621141
+ -0.42069842 -0.61493744 -0.31205452 -0.08649871  0.15531753  1.
+  0.          0.          0.          0.        ]</code></pre><hr>
+<h1 id="线性回归模型"><a href="#线性回归模型" class="headerlink" title="线性回归模型"></a>线性回归模型</h1><pre><code class="python"># 线性回归模型的训练
+from sklearn.linear_model import LinearRegression
+
+lin_reg = LinearRegression()
+lin_reg.fit(housing_prepared,housing_labels)</code></pre>
+<pre><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)</code></pre><pre><code class="python"># 使用几个训练集的实例测试我们的线性回归模型
+some_data = housing.iloc[:5]
+some_data
+some_labels = housing_labels.iloc[:5]
+some_data_prepared = full_pipeline.transform(some_data)
+print(&quot;Predictions: \t&quot;, lin_reg.predict(some_data_prepared))
+print(&quot;Labels:\t\t&quot;,list(some_labels)) # 虽然可以工作了预测准确度太差
+# 可以使用sklearn中RMSE(mean-squared-error)测量训练集上回归模型的RMSE
+from sklearn.metrics import mean_squared_error
+housing_predictions = lin_reg.predict(housing_prepared)
+lin_mse = mean_squared_error(housing_labels,housing_predictions)
+print(&quot;Train-MSE:%s&quot;%lin_mse)
+lin_rmse = np.sqrt(lin_mse)
+print(&quot;Train-RMSE：%s&quot;%lin_rmse)</code></pre>
+<pre><code>Predictions:      [210644.60459286 317768.80697211 210956.43331178  59218.98886849
+ 189747.55849879]
+Labels:         [286600.0, 340600.0, 196900.0, 46300.0, 254500.0]
+Train-MSE:4709829587.971121
+Train-RMSE：68628.19819848923</code></pre><pre><code class="python"># 使用sklearn中的交叉验证功能
+# 降训练集随机分成10份，每个子集称为一个折叠fold，对决策树模型进行十次训练和评估，每次调训一个折叠作为评估，另外9份作为训练集。
+from sklearn.model_selection import cross_val_score
+lin_scores = cross_val_score(lin_reg,housing_prepared,housing_labels,scoring=&quot;neg_mean_squared_error&quot;,cv = 10)
+lin_rmse_scores = np.sqrt(-lin_scores)
+print(&#39;Scores:&#39;,lin_rmse_scores)
+print(&#39;Mean（均值）:&#39;,lin_rmse_scores.mean())
+print(&#39;Standard deviation(标准偏差):&#39;,lin_rmse_scores.std())</code></pre>
+<pre><code>Scores: [66782.73843989 66960.118071   70347.95244419 74739.57052552
+ 68031.13388938 71193.84183426 64969.63056405 68281.61137997
+ 71552.91566558 67665.10082067]
+Mean（均值）: 69052.46136345083
+Standard deviation(标准偏差): 2731.6740017983425</code></pre><hr>
+<h1 id="决策树模型"><a href="#决策树模型" class="headerlink" title="决策树模型"></a>决策树模型</h1><pre><code class="python">from sklearn.tree import DecisionTreeClassifier
+tree_reg = DecisionTreeClassifier()
+tree_reg.fit(housing_prepared,housing_labels)</code></pre>
+<pre><code>DecisionTreeClassifier(class_weight=None, criterion=&#39;gini&#39;, max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter=&#39;best&#39;)</code></pre><pre><code class="python">housing_predictions = tree_reg.predict(housing_prepared)
+tree_mse = mean_squared_error(housing_labels,housing_predictions)
+tree_rmse = np.sqrt(tree_mse)
+tree_rmse #已过拟合，我们可以使用之前分割的测试数据集进行验证或者使用交叉验证</code></pre>
+<pre><code>0.0</code></pre><pre><code class="python">tree_scores = cross_val_score(tree_reg,housing_prepared,housing_labels,scoring = &#39;neg_mean_squared_error&#39;,cv = 10)
+tree_rmse_scores = np.sqrt(-tree_scores)</code></pre>
+<pre><code>d:\ipython\lib\site-packages\sklearn\model_selection\_split.py:605: Warning: The least populated class in y has only 1 members, which is too few. The minimum number of members in any class cannot be less than n_splits=10.
+  % (min_groups, self.n_splits)), Warning)</code></pre><pre><code class="python">print(&#39;Scores:&#39;,tree_rmse_scores)
+print(&#39;Mean（均值）:&#39;,tree_rmse_scores.mean())
+print(&#39;Standard deviation(标准偏差):&#39;,tree_rmse_scores.std())</code></pre>
+<pre><code>Scores: [ 85710.01369961  81230.61378336  82335.83537005  75877.27486535
+  75090.99888798  78409.26002322  78475.89222942  79428.78633416
+ 103606.00563702 101828.54775259]
+Mean（均值）: 84199.322858276
+Standard deviation(标准偏差): 9712.031022021029</code></pre><hr>
+<h1 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h1><pre><code class="python">from sklearn.ensemble import RandomForestRegressor
+forest_reg = RandomForestRegressor()
+forest_reg.fit(housing_prepared,housing_labels)</code></pre>
+<pre><code>RandomForestRegressor(bootstrap=True, criterion=&#39;mse&#39;, max_depth=None,
+           max_features=&#39;auto&#39;, max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False)</code></pre><pre><code class="python">housing_predictions = forest_reg.predict(housing_prepared)
+forest_mse = mean_squared_error(housing_labels,housing_predictions)
+forest_rmse = np.sqrt(forest_mse)
+forest_rmse</code></pre>
+<pre><code>22174.812789705677</code></pre><pre><code class="python">forest_scores = cross_val_score(forest_reg,housing_prepared,housing_labels,scoring = &#39;neg_mean_squared_error&#39;,cv = 10)
+forest_rmse_scores = np.sqrt(-forest_scores)
+print(&#39;Scores:&#39;,forest_rmse_scores)
+print(&#39;Mean（均值）:&#39;,forest_rmse_scores.mean())
+print(&#39;Standard deviation(标准偏差):&#39;,forest_rmse_scores.std())</code></pre>
+<pre><code>Scores: [52673.69656378 50803.5706211  53741.47818017 53343.47330547
+ 51028.26110671 56342.5218843  50757.88436481 50711.95588612
+ 55791.4729642  52200.01381263]
+Mean（均值）: 52739.43286892828
+Standard deviation(标准偏差): 1966.5788024649446</code></pre><hr>
+<h1 id="网格搜索"><a href="#网格搜索" class="headerlink" title="网格搜索"></a>网格搜索</h1><p>上面的模型我们知识大概了解一下。现在我们有几组比较有效的模型候选列表，我们可以使用网格搜索的方式去调整超参数</p>
+<p>下面我们使用GridSearchCV对RandomForestRegressor进行网格搜索调整参数</p>
+<pre><code class="python">from sklearn.model_selection import GridSearchCV
+
+param_guid = [
+    {&#39;n_estimators&#39;:[3,10,30],&#39;max_features&#39;:[2,4,6,8]},
+    {&#39;bootstrap&#39;:[False],&#39;n_estimators&#39;:[3,10],&#39;max_features&#39;:[2,3,4]},
+]
+forest_reg = RandomForestRegressor()
+grid_search = GridSearchCV(forest_reg,param_guid,cv = 5,scoring = &#39;neg_mean_squared_error&#39;)
+grid_search.fit(housing_prepared,housing_labels)</code></pre>
+<pre><code>GridSearchCV(cv=5, error_score=&#39;raise&#39;,
+       estimator=RandomForestRegressor(bootstrap=True, criterion=&#39;mse&#39;, max_depth=None,
+           max_features=&#39;auto&#39;, max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False),
+       fit_params=None, iid=True, n_jobs=1,
+       param_grid=[{&#39;n_estimators&#39;: [3, 10, 30], &#39;max_features&#39;: [2, 4, 6, 8]}, {&#39;bootstrap&#39;: [False], &#39;n_estimators&#39;: [3, 10], &#39;max_features&#39;: [2, 3, 4]}],
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+       scoring=&#39;neg_mean_squared_error&#39;, verbose=0)</code></pre><pre><code class="python"># 搜索完成以后你将会得到在你给予的值范围内最好的超参数，
+# 因为n_estimators超参数在我们的搜索中30是最大值，我们获取可以继续增大该值，或许能获取到更优的超参数
+print(grid_search.best_params_) # 最好的超参数
+print(grid_search.best_estimator_) # 获取最好的模型
+cvres = grid_search.cv_results_ # 所有策略评估分数
+for mean_score, params in zip(cvres[&quot;mean_test_score&quot;],cvres[&quot;params&quot;]):
+    print(np.sqrt(-mean_score),params)</code></pre>
+<pre><code>{&#39;max_features&#39;: 8, &#39;n_estimators&#39;: 30}
+RandomForestRegressor(bootstrap=True, criterion=&#39;mse&#39;, max_depth=None,
+           max_features=8, max_leaf_nodes=None, min_impurity_decrease=0.0,
+           min_impurity_split=None, min_samples_leaf=1,
+           min_samples_split=2, min_weight_fraction_leaf=0.0,
+           n_estimators=30, n_jobs=1, oob_score=False, random_state=None,
+           verbose=0, warm_start=False)
+64119.85349022265 {&#39;max_features&#39;: 2, &#39;n_estimators&#39;: 3}
+55381.23545742357 {&#39;max_features&#39;: 2, &#39;n_estimators&#39;: 10}
+53075.44430708791 {&#39;max_features&#39;: 2, &#39;n_estimators&#39;: 30}
+60409.23914852959 {&#39;max_features&#39;: 4, &#39;n_estimators&#39;: 3}
+52752.70703014053 {&#39;max_features&#39;: 4, &#39;n_estimators&#39;: 10}
+50688.20150002824 {&#39;max_features&#39;: 4, &#39;n_estimators&#39;: 30}
+58807.05957827667 {&#39;max_features&#39;: 6, &#39;n_estimators&#39;: 3}
+52001.301422501005 {&#39;max_features&#39;: 6, &#39;n_estimators&#39;: 10}
+50192.68760353124 {&#39;max_features&#39;: 6, &#39;n_estimators&#39;: 30}
+58407.14908967587 {&#39;max_features&#39;: 8, &#39;n_estimators&#39;: 3}
+52082.05779305404 {&#39;max_features&#39;: 8, &#39;n_estimators&#39;: 10}
+50055.361023543235 {&#39;max_features&#39;: 8, &#39;n_estimators&#39;: 30}
+63019.801729902276 {&#39;bootstrap&#39;: False, &#39;max_features&#39;: 2, &#39;n_estimators&#39;: 3}
+54226.00106549722 {&#39;bootstrap&#39;: False, &#39;max_features&#39;: 2, &#39;n_estimators&#39;: 10}
+61102.60574526821 {&#39;bootstrap&#39;: False, &#39;max_features&#39;: 3, &#39;n_estimators&#39;: 3}
+52792.63987300767 {&#39;bootstrap&#39;: False, &#39;max_features&#39;: 3, &#39;n_estimators&#39;: 10}
+59220.41356163033 {&#39;bootstrap&#39;: False, &#39;max_features&#39;: 4, &#39;n_estimators&#39;: 3}
+51283.813598815985 {&#39;bootstrap&#39;: False, &#39;max_features&#39;: 4, &#39;n_estimators&#39;: 10}</code></pre><h2 id="随机搜索"><a href="#随机搜索" class="headerlink" title="随机搜索"></a>随机搜索</h2><p>随机搜索与网格搜索使用方法类似，sklearn中的方法 RandomizedSearchCV</p>
+<h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>就是把比较好的几种方法进行集成，类似于随机森林</p>
+<hr>
+<h1 id="分析最佳模型及其错误"><a href="#分析最佳模型及其错误" class="headerlink" title="分析最佳模型及其错误"></a>分析最佳模型及其错误</h1><pre><code class="python"># 我们在进行准确预估的时候，可以指出每个属性相对的重要程度
+feature_importances = grid_search.best_estimator_.feature_importances_
+print(feature_importances)
+extra_attribs = [&#39;rooms_per_household&#39;,&#39;population_per_household&#39;,&#39;bedrooms_per_room&#39;]
+cat_one_hot_attribs = list(encoder.classes_)
+attributes = num_attribs + extra_attribs + cat_one_hot_attribs
+sorted(zip(feature_importances, attributes),reverse= True)</code></pre>
+<pre><code>[7.11837050e-02 6.49390013e-02 4.45982246e-02 1.54058658e-02
+ 1.51343704e-02 1.51144514e-02 1.43021595e-02 3.32747738e-01
+ 5.47807317e-02 1.11495774e-01 8.53794690e-02 4.73000789e-03
+ 1.64498398e-01 7.99754238e-05 2.58803593e-03 3.02209250e-03]
+
+
+
+
+
+[(0.3327477377793599, &#39;median_income&#39;),
+ (0.16449839819355594, &#39;INLAND&#39;),
+ (0.11149577356183278, &#39;population_per_household&#39;),
+ (0.08537946903014358, &#39;bedrooms_per_room&#39;),
+ (0.07118370498819128, &#39;longitude&#39;),
+ (0.06493900130495682, &#39;latitude&#39;),
+ (0.05478073171138477, &#39;rooms_per_household&#39;),
+ (0.04459822463776366, &#39;housing_median_age&#39;),
+ (0.015405865798022386, &#39;total_rooms&#39;),
+ (0.015134370410352954, &#39;total_bedrooms&#39;),
+ (0.015114451369986391, &#39;population&#39;),
+ (0.014302159478332245, &#39;households&#39;),
+ (0.0047300078856028485, &#39;&lt;1H OCEAN&#39;),
+ (0.0030220924972792274, &#39;NEAR OCEAN&#39;),
+ (0.0025880359294569487, &#39;NEAR BAY&#39;),
+ (7.997542377816801e-05, &#39;ISLAND&#39;)]</code></pre><hr>
+<h1 id="通过测试集评估系统"><a href="#通过测试集评估系统" class="headerlink" title="通过测试集评估系统"></a>通过测试集评估系统</h1><pre><code class="python">final_model = grid_search.best_estimator_
+
+X_test = strat_test_set.drop(&quot;median_house_value&quot;,axis = 1)
+y_test = strat_test_set[&quot;median_house_value&quot;].copy()
+
+x_test_prepared = full_pipeline.transform(X_test)
+final_predictions = final_model.predict(x_test_prepared)
+
+final_mse = mean_squared_error(y_test,final_predictions)
+final_rmse = np.sqrt(final_mse)
+final_rmse</code></pre>
+<pre><code>47913.84534663264</code></pre><p>模型已经成型，进入项目预启动阶段，你需要展示你的解决方案（强调学习了什么，有什么用，什么没有用，基于什么假设，以及系统的限制有什么），记录所有事情，通过清晰的可视化和易于记忆的陈述方式，制作漂亮的演示文稿</p>
+<hr>
+<h1 id="启动、监控、维护系统"><a href="#启动、监控、维护系统" class="headerlink" title="启动、监控、维护系统"></a>启动、监控、维护系统</h1><ul>
+<li>做好生产数据接入系统准备</li>
+<li>编写监控代码定期检查实时性能，同时在性能下降时发出警告</li>
+<li>还需要评估输入系统的数据质量</li>
+<li>尽可能自动化完成一定的时间自训练模型，如果是在线的学习系统，应该定期保存系统状态，快速备份</li>
+</ul>
+<h1 id="START"><a href="#START" class="headerlink" title="START"></a>START</h1><p><a href="http://kaggle.com/" target="_blank" rel="noopener">http://kaggle.com/</a> 是一个不错的网站，它会给你一个数据集，一个明确的目标，同时也可一起分享经验</p>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                        &nbsp;
+                                    
+                                        <a class="hover-with-bg" href="/categories/scikitlearn">scikitlearn</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                
+                                    <a class="hover-with-bg" href="/tags/BOOK">BOOK</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/0x2e/Material-T" target="_blank" rel="nofollow noopener"> <b>Material-T</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "MachineLearning with SK AND TF (1_端到端的机器学习项目)&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

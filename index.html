@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="杨乘 Blog">
+    <meta name="author" content="Tony">
+    <meta name="keywords" content>
+    <title>Tony&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/index.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        <div class="container nopadding-md">
+            <div class="py-5 z-depth-3 board">
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-10 m-auto">
+                            
+
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/06/神经网络-Cross-Validation/">
+                <p class="h4 index-header">神经网络-Cross Validation</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">当我们拿到一批数据，搭建了一个模型，准备为这个模型训练参数的时候，我们使用全部数据对模型计算损失和准确率，这会得到我们在整个训练集上的损失和准确率。这批数据是在我们训练过程中已经使用过的数据，那我们是如何判定这个模型在新的数据上的表现，是出色还是糟糕。
+萌生这种想法，这种想法被称作交叉验证（Cross Validation）。我们拿到一批数据以后，并不是将这批数据全部都喂进我们的模型中，而是将这批数据做拆分，一批数据作为训练集，另外一批作为验证集。这样我们就能保证在验证集中获得的loss和acc是在未知的新数据中得到的。我们就可以以这个来评定我们的模型在新数据中表现的是出色还是糟糕。
+Shuffle Data在拿到一批数据以后，有极大的可能这批数据集是有关联性的，比如是按照时间顺序排列，或者说前面部分是Class1 后面部分是Class2。这样在后面的数据集分离后，获得的数据集将会是不均很的，很可能在训练集当中70%都是Class1分类，而在验证集当中所有都是Class2分类。
+为了避免这个问题的发生，我们的做法是，将数据集打乱，虽说不能完全避免这类情况的发生，但是极大降低了产生的几率</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-06
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/06/神经网络-Random-Initialization/">
+                <p class="h4 index-header">神经网络-Random Initialization</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">在机器学习的过程中参数必然需要进行初始化操作，我们具体把参数初始化为什么较好呢？是否可以将所有的权重向量设置初始化为同样的值，比如0？
+答案是否定的，在吴恩达老师讲解的机器学习课程中，对于这一个初始化做了详细的讲解。
+Zero initialization将所有参数在初始化的时候初始化为0，我们可以试着这么理解，在前端输入层输入了相同的数据，我们根据这个均相同的参数权重去计算下一层的输入。这就意味这我们会以相同的输入函数去计算，对每个输入的sample去训练，这样来说我们下一层的所有输入将会是相同的，这样一来，我们在后面获得的损失函数对前面参数的求导，获得的梯度也会是相同的，根据学习率向着相同的方向做梯度更新以后，获得的参数也将会是相同的。最后在更新以后每层隐含层的参数是相同的，这就意味着整个神经网络参数高度冗余，在最后的输出单元只会得到单个功能。因此zero initialization 在神经网络中是不可行的
+因此我们需要更有特色，更有用的参数权重初始化方法，使得我们的学习是有用的学习，在模型中能有更多的功能，或者这么说，我们可以获得一个更好的，较少冗余的神经网络模型。
+Rando</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-06
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/08/23/MachineLearning-with-SK-AND-TF-1-端到端的机器学习项目/">
+                <p class="h4 index-header">MachineLearning with SK AND TF (1_端到端的机器学习项目)</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1"># download dataset
+import os
+import tarfile
+import urllib
+
+DOWNLOAD_ROOT = &quot;http://raw.githubusercontent.com/ageron/handson-ml/master/&quot;
+HOUSING_PATH = &quot;datasets/housing&quot;
+HOUSING_URL = DOWNLOAD_ROOT + HOUSING_PATH + &quot;/housing.tgz&quot;
+print(HOUSING_URL)
+
+def fetch_housing_data(housing_url = HOUSING_URL,housing_path = HOUSING_PATH):
+    if not os.path.isdir(housing_path):
+        os.makedirs(housing_path)
+    tgz_path = os.path.join(housing_path,&quot;housing.tgz&quot;)
+ </div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/scikitlearn">scikitlearn</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/BOOK">BOOK</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/08/23/Oracle-中-varchar2-varchar/">
+                <p class="h4 index-header">Oracle 中 varchar2 &amp; varchar </p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">直观varchar – 存放定長的字符数据，最長2000个字符；
+varchar2 – 存放可变长字符数据，最大长度为4000字符。
+隐含1.varchar2把所有字符都占两字节处理(一般情况下)，varchar只对汉字和全角等字符占两字节，数字，英文字符等都是一个字节
+2.VARCHAR2把空串等同于null处理，而varchar仍按照空串处理
+3.VARCHAR2字符要用几个字节存储，要看数据库使用的字符集
+注意：varchar 在获取到字符串时，若字符长度不够，会在数据后方以空格补齐保证定长， varchar2 会以原数据内容进行存储
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/Oracle">Oracle</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/Oracle">Oracle</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/08/23/Git-Pull-与-Git-Fetch-的区别/">
+                <p class="h4 index-header">Git Pull 与 Git Fetch 的区别</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">说来也惭愧,这是在一场面试中,面试官口述问我的一道题。面试官的原话是这样的：你平时常用Git的话,那请问Git Pull和Git Fetch有什么区别？
+当时我就蒙住了，Git在平时的使用中是挺常用的，公司平时都是小项目，对于代码安全来说并不是特别在意，平时也就用Git Pull直接把服务器上最新的代码给拉取到主分支，再创建分支，在分支上做开发,最后再合并。
+平时也没查过fetch相关的内容，这可不，就只能栽在这了。
+Git PullGit Pull 命令是Git当中将远程版本库中最新的内容拉取到本地的操作，该操作会直接将远程版本库中的内容直接拉取到本地，并将本地内容与拉取的内容做合并，在不经过任何统一的情况下，只要不遇见版本冲突等其他问题，就相当于直接替换了本地的版本内容。
+用法：git pull origin master
+Git fetchGit Fetch 命令是将远程版本库中的最新版本内容单纯拉取到本地的操作，拉取到本地的内容将会成为一个单独的分支，如果不进行后续的操作，主分支将不会做任何修改，也不会替换为远程版本库中的最新内容。需要通过查看是否需要当前更新的内容，然后再将此</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/Git">Git</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/Git">Git</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2018/10/22/MTP综合管理技能提升培训（三）/">
+                <p class="h4 index-header">MTP综合管理技能提升培训（三）</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">管理者应该具备的管理技能沟通协调可行性方案
+
+执行控制
+目标计划
+指挥授权
+培养激励
+
+沟通的六个步骤
+事前准备
+融洽关系
+调查需求
+阐述观点
+处理异议
+达成共识
+
+表扬的艺术高层次的表扬 ， 低层次的批评
+表扬可以对人   批评需要对事
+沟通沟通应该营造良好的氛围。当别人有想法时，应该选择倾听，适当记好笔记。对话的衔接应该多肯定，表达观点应该逻辑清晰，及时响应。沟通思想的同事也需要沟通情感
+沟通的方式涉及到敏感的问题，需要当面说，遇到决策性问题，应该以会议的形式，后期并以纸面形式确定会议内容。
+有的沟通需要冷媒体（白纸黑字），实现有据可查
+有的沟通需要热媒体（面对面的沟通），可以深入人心
+有的沟通需要多媒体，重要性、准确性、多对象性
+注意兼顾效率和效果，查找最可靠的沟通方式
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-22
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/MTP">MTP</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/MTP">MTP</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2018/10/16/MTP综合管理技能提升培训（二）/">
+                <p class="h4 index-header">MTP综合管理技能提升培训（二）</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">1.别人心目中理想的管理者换位思考：发现领导眼中的我什么样的，发现下属眼中我是什么样的
+从而领悟自己在领导眼中和下属眼中最应该提升什么
+2.层级意识建立信任、坦诚关系
+站在上司角度看问题
+试探上司让上司授权，提出合理化的建议，不越级指挥和汇报
+及时提醒上司武略的事情
+不盲从，合理“管理”上司
+3.管理者意识①做管理者要先有 目标感 、全局感
+②不漠视规则
+③做事，快准狠
+④不要低头做事，要学会抬头看路
+⑤循规蹈矩不一定永远有效
+⑥适当敏感和质疑现在的路线是必要的
+⑦及时纠偏非常重要
+4.规矩所有规矩，先坚决执行后，再提出相应的建议
+5.心态正面积极做企业中的发光体，不做黑洞，情绪A（成因）B（看法）C（后果）疗法，把握可控的，控制个人对时间的看法，改变事件的结果
+6.合作共赢寻找合作中的交叉共赢点，把生活、工作、学习当做是合作方。
+寻找共赢点，达到双方共赢的目的
+7.学历&lt;&gt;学习力学历并不等于学习力，继续学习没有什么不好
+8.信任和欣赏没人身上都有值得欣赏的地方，每个人都会向被欣赏的方向努力
+当批评的方式不管用的时候可以试试使用欣赏的方式
+欣赏的三要素：及时 、具体 、发自</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-16
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/MTP">MTP</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/MTP">MTP</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2018/10/10/MTP综合管理技能提升培训（四）/">
+                <p class="h4 index-header">MTP综合管理技能提升培训（四）</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">沟通沟通是以解决问题，达成一致的目标为方向的
+因此，所有场合的沟通，是需要肯定对方。
+所有的沟通都一肯定对方为主
+沟通批评的三步走法则
+肯定 先肯定对方
+批评 在就事论事，高表扬 ，低批评
+信任 信任对方
+
+管理学管理的重心管理的重心不应该是工作和物质上的因素，应该把目光转到人的因素上去，人被重视了以后，就会更加卖力，做的更加出色
+目标的管理并不是管理目标，而是管理从目标到得到成果的全过程
+目标的制定目的目标计划
+目的：努力的方向
+目标：预期的结果
+计划：为实现目标和目的，设定安排好 责任人、实施方法、时间日程
+
+做好目标，考虑做什么样的人，成就什么样的事业，才会向着自己的方向前进
+制定目标的好处
+目标是行动的基础、导航，为行动指明方向
+有目标才能有效的利用资源，不会漫无目的
+达成目标后，有成就感，有激励的作用
+
+企业的绩效需要从四个方面来衡量企业的绩效不能只从财务指标角度来衡量考虑
+应该从财务、客户、内部流程、学习与成长 四个层面来衡量企业的业绩
+目标的制定
+高层基于战略通过SWOT分析指定整体目标
+遵循SMART原则
+目标层级清晰
+目标数量3-5个
+由上而下 基于事实 逐层分解 参</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-10
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/MTP">MTP</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/MTP">MTP</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2018/08/06/MTP综合管理技能提升培训（一）/">
+                <p class="h4 index-header">MTP综合管理技能提升培训（一）</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">1.知识体系MTP综合管理技能 知识体系 ：① 管理心理学 ②九型人格 ③神经语言程序学 ④教练技术 ⑤管理培训计划
+2.管理技能架构对于自己（角色，心态）：管理好自己的角色和心态对于人（培养，沟通，激励）：做好教练，教练（教练技术一项通过改善被教练者心智模式来发挥其潜能和提升效率的管理技术）对于事（计划，指挥，控制）：顾问 给予做事的方法
+3.缺点，盲点失败是发现自己盲点的绝佳机会，失败中自我反思失败原因
+4.优秀管理者的素质模型①领袖素质（决定管理层高低）：激励 负责任 信任 共赢②基本管理能力：科学决策 授权 沟通 目标方向③人力资源管理能力（非人力资源管理技能）：选育用留④业务管理能力:专业知识和业务管理能力
+5.信念信念决定人生高度，扩宽自己的信念，则会有更大的成果 
+6.素质领袖发挥自己的优势，弥补自己最大的缺陷
+7.称职？何为称职  人总是处于有挑战的位置，每个人的职位应为 20%的挑战 + 80%的把握  
+因此，需要①包容上司处于不胜任的状态②接纳自己的不足③洞察下属是否有超胜任及超不胜任的情况
+8.探秘术凡事，先“横推”，后“下切”
+9.管理者角色的认知企业中的管理</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-08-06
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/MTP">MTP</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/MTP">MTP</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2017/09/22/Zabbix-Server-配置优化/">
+                <p class="h4 index-header">Zabbix Server 配置优化</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Zabbix 是一款性能特别高的一款分布式监控报警系统，在平时的运行维护当中，是一款不错的监控软件，可以实施监控服务器以及各种设备设施的状态。
+Zabbix 简单的优化调整由于监控设备的数量是不定的，有些时候因为默认参数配置的不够，会导致Zabbix自身状态不稳定，导致报警。比如说：
+Zabbix unreachable poller processes more than 75% busy
+Zabbix discoverer processes more than 75% busy
+因此，为了Zabbix运行的更加稳定，我们就需要对Zabbix做相应的优化处理
+参数说明这部分很重要
+下面是我们监控项中所有项目所对应的参数配置。
+关于 Zabbix data gathering process busy % 参数
+Zabbix busy trapper processes, in %                     StartTrappers=
+Zabbix busy poller processes, in %                      StartPoller</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2017-09-22
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E8%BF%90%E7%BB%B4">运维</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/zabbix">zabbix</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/zabbix">zabbix</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/0x2e/Material-T" target="_blank" rel="nofollow noopener"> <b>Material-T</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "机器学习 路途艰难 选择的路 永不言弃&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>
