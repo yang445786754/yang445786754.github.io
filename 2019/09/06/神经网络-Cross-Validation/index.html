@@ -135,16 +135,10 @@ np.array(x[:train_ind]),np.array(x[train_ind+1:]),np.array(y[:train_ind]),np.arr
 
     train_ind = int(x.shape[0] * rate)
     return np.array(x[:train_ind]),np.array(x[train_ind+1:]),np.array(y[:train_ind]),np.array(y[train_ind+1:])
-
-    ```
-
-# K-Fold 交叉验证
-
-K-Fild 数据集拆分K份，在每轮训练中，将使用不同的训练集：将随机使用K-1份作为训练集，单一的那份作为验证集，当该轮训练结束后需要重新获取选择新的K-1份数据集作为训练集。
-
-代码实现自己造轮子吧。当然也可使用各框架中的方法。Up to you
-
-Best wishes</code></pre>
+</code></pre>
+<h1 id="K-Fold-交叉验证"><a href="#K-Fold-交叉验证" class="headerlink" title="K-Fold 交叉验证"></a>K-Fold 交叉验证</h1><p>K-Fild 数据集拆分K份，在每轮训练中，将使用不同的训练集：将随机使用K-1份作为训练集，单一的那份作为验证集，当该轮训练结束后需要重新获取选择新的K-1份数据集作为训练集。</p>
+<p>代码实现自己造轮子吧。当然也可使用各框架中的方法。Up to you</p>
+<p>Best wishes</p>
 
                             <hr>
                         </div>

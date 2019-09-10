@@ -112,8 +112,9 @@
 <h1 id="Random-Initialization"><a href="#Random-Initialization" class="headerlink" title="Random Initialization"></a>Random Initialization</h1><p>Random Initialization 是神经网络初始化的一种方法。</p>
 <p>随机初始化的方法，给定初始化为 rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON</p>
 <p>此处的INIT_EPSILON 是一个非常接近于0 的初始值,很好的一个选择方法是如下的公式</p>
-<p>$$\epsilon_{init} = \frac{\sqrt{6}}{\sqrt{L_{in} + L_{out}}} $$</p>
-<p>此处的$L_{in} = s_l and L_{out} = s_{l+1}$ 为初始化参数$\theta$相应网络层中的神经元个数</p>
+<!-- $$\epsilon_{init} = \frac{\sqrt{6}}{\sqrt{L_{in} + L_{out}}} $$ -->
+<p><img src="ramdominitialization.png" alt="ramdominitialization"></p>
+<p>此处的<!-- $L_{in} = s_l and L_{out} = s_{l+1}$ --> <img src="random1.png" alt="ramdom1">为初始化参数θ相应网络层中的神经元个数</p>
 <p>通过这个方法初始化所有的参数，可以打破对称。从而跳出之前在使用Zero initialization 时候遇到的问题。</p>
 
                             <hr>
