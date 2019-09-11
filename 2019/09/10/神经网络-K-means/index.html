@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="杨乘 Blog">
+    <meta name="author" content="Tony">
+    <meta name="keywords" content>
+    <title>神经网络-K-means ~ Tony&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期二, 九月 10日 2019, 9:10 上午</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <h1 id="K-means-思路"><a href="#K-means-思路" class="headerlink" title="K-means 思路"></a>K-means 思路</h1><p>K-mean 是我接触到的第一个非监督学习算法，K-mean算法的思路想法是这样的，在我们获取到的所有Unmark点的空间中选取几个分类点，这些点的位置是我们随机产生的，我们把它们叫做聚类中心，我们将其分为两个类C1,C2叙述，我们打算把这批数据分类为两个分类，K-mean是一个迭代方法，他要做的是两个事情，1.簇分配；2.移动聚类中心。迭代所有数据点，计算数据点到两个聚类中心的距离，根据数据点到聚类中心的距离将其分配到C1,C2聚类中，簇分类的操作已经完成，还需要做的就是将聚类中心移动到刚才分配所得到的数据点中心去，具体做法就是计算单个聚类中所有数据点的均值，将聚类中心放置于均值点的位置。两个步骤完成，接下来就是反复循环上面的步骤再次执行检测分类。直到分类不再改变，最终就会找到两个簇</p>
+<h1 id="K-means-算法"><a href="#K-means-算法" class="headerlink" title="K-means 算法"></a>K-means 算法</h1><p>输入：</p>
+<ul>
+<li>K -&gt; 我们想要达到目的分为多少个类别</li>
+<li>Train Set -&gt; 没有标签的数据集{x1,x2,x3,…xm}</li>
+</ul>
+<p>下列是借鉴的Andrew Ng老师机器学习的板书</p>
+<pre><code class="python">Randomly initialize K cluster centroids u1,u2,u3...uk
+Repeat{
+    for i = 1 to m:
+        c(i) := 离x(i)点最近的聚类中心分类 min||x(i) - u(k)||^2
+
+    for k = 1 to K:
+        u(k) := 分配给集群簇的点的平均
+        # 例如：分配给C2的点为x(1),x(3),x(6),x(10)，计算u(2) = 1/4[x(1)+x(3)+x(6)+x(10)]
+}</code></pre>
+<p>分类计算分配的点，如果发现有聚类中心u没有被分配点，可以选择删除聚类中心，但是会减少分类。</p>
+<h1 id="K-mean-Optimization-Objective"><a href="#K-mean-Optimization-Objective" class="headerlink" title="K-mean Optimization Objective"></a>K-mean Optimization Objective</h1><p>K-mean 的优化目标最小化代价函数,最小化目标代价函数，最小化每个分类点到聚类中心的距离的平均</p>
+<p><img src="kmeanOptimization.png" alt="kmeanoptimization"></p>
+<h1 id="K-mean-Random-initialization"><a href="#K-mean-Random-initialization" class="headerlink" title="K-mean Random initialization"></a>K-mean Random initialization</h1><p>良好的初始化方法将会给模型带来一个好的分类，如何初始化聚合中心将会决定你获得到的结果好坏，不至于模型在数据集上坏掉</p>
+<p>那么如何初始化模型的聚合中心，才能获得更好的模型，而且跳出局部最优</p>
+<p>多次执行K-mean的方法</p>
+<pre><code class="python">FOR i = 1 to 100{
+    Randomly initialize K-means.
+    Run K-means .Get c(1),...c(m),u(1),...u(K) 执行K-means 获得结果及聚类
+    计算成本函数Function(distortion)
+        J(c(1)...c(m),u1,...uK)
+}
+</code></pre>
+<p>经过100次的计算我们获得了100中分类结果聚类数据，从中选取最优的，畸变值最低的cluster</p>
+<h1 id="K-means-如何选择参数K"><a href="#K-means-如何选择参数K" class="headerlink" title="K-means 如何选择参数K"></a>K-means 如何选择参数K</h1><h2 id="肘部方法"><a href="#肘部方法" class="headerlink" title="肘部方法"></a>肘部方法</h2><p>通过从小改变K的值，对数据集做K-means，计算成本函数值。通过绘制K值与成本函数J的值的图像，观察成本函数下降趋势，转折肘部为佳选。</p>
+<p><img src="elbow.png" alt="elbow"></p>
+<p>肘部方法在某些成本函数下降平缓的情况下，无法作用</p>
+<h2 id="从使用及商业角度考量"><a href="#从使用及商业角度考量" class="headerlink" title="从使用及商业角度考量"></a>从使用及商业角度考量</h2><p>从目的和商业角度考量K值应该取多少合适</p>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/0x2e/Material-T" target="_blank" rel="nofollow noopener"> <b>Material-T</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "神经网络-K-means&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

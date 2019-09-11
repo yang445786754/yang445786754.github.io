@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>神经网络-Data Compression 数据压缩降维</title>
+      <link href="undefined2019/09/11/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Data-Compression-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E9%99%8D%E7%BB%B4/"/>
+      <url>2019/09/11/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Data-Compression-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E9%99%8D%E7%BB%B4/</url>
+      
+        <content type="html"><![CDATA[<p>通常我们的数据集的特征会有很多，有部分特征会产生冗余，可以使用降维的方式去降低特征的维度，将3D的特征降维成为2D将2D降低成为1D。想法是，在避免丢失信息的情况下将多维度数据投影到一条直线或一个平面上，这条直线并不是坐标轴。这样可以加快我们后面算法的运算速度。</p><p><img src="datacompression.png" alt="kmeanoptimization"></p><h1 id="主成分"><a href="#主成分" class="headerlink" title="主成分"></a>主成分</h1><p>主成分分析可以在训练集中识别出那一条轴对差异性的贡献度最高，</p><h2 id="如何找到主成分"><a href="#如何找到主成分" class="headerlink" title="如何找到主成分"></a>如何找到主成分</h2><p>有一种标准举证分解技术，叫做奇异值分解。他会将训练集矩阵X分解成为三个矩阵的点积U·Sigma·V^T,其中V^T包含我们所想要的所有主成分</p><h2 id="Principal-Componet-Analysis-PCA"><a href="#Principal-Componet-Analysis-PCA" class="headerlink" title="Principal Componet Analysis (PCA)"></a>Principal Componet Analysis (PCA)</h2><ul><li>获取数据x1,x2,x3…xm</li><li>先对数据进行均值归一化,计算均值，然后使每个样本数据减去均值，使用xi - uj,uj为均值<!-- u_j = \frac1m \sum_{i=1}^{m}x_j^{(i)} --><img src="meanscalar.png" alt="meanscalar"></li><li>在低维子空间中寻找一个向量或者一个面来投影我们所有的数据点<ul><li>计算”协方差”convariance matrix 获取主成分  <!-- \Sigma = \frac1m \sum_{i = 1}^{n}(x^{(i)})(x^{(i)})^T -->  <img src="computeconvariancematrix.png" alt="computeconvariancematrix"></li><li>我们可以使用munpy中的svd()函数获取训练集中的所有主成分，下列示例我们获取主成分中的前两个主成分</li></ul></li></ul><pre><code class="python">X_centered = X - X.mean(axis = 0)U,s,V = np.linalg.svd(X_centered)c1 = V.T[:,0]c2 = V.T[:,1]</code></pre><ul><li>我们已经确定获取到了所有主成分，就可以将数据集投影到前d个主成分定义的超平面上从而将数据集维度从n维度，降低到了d个维度，需要将数据集投影到前d个主成分上只需要将训练集与前d个主成分组成的矩阵点积即可。<ul><li>X_{d-proj} = X · Wd      ；Wd为前d个主成分组合矩阵</li></ul></li></ul><pre><code class="python">W2 = V.T[:,:2]X2D = X_centered.dot(W2)</code></pre><p>这样实现了在尽可能保留多差异性的同时，将任意数据集降低到任意维度</p><p>另：sklean中的PCA</p><pre><code class="python">from sklean.decomposition import PCApca = PCA(n_components = 2)X2D = pca.fit_transform(X)</code></pre><p>通过<code>pca.components_</code>获取主成分例如获取第一个主成分<code>pca.components_.T[:,0]</code></p><h1 id="方差解释率"><a href="#方差解释率" class="headerlink" title="方差解释率"></a>方差解释率</h1><p>非常有用的主成分信息是主成分的方差解释率。他表示的是每个主成分对数据集方差的贡献程度，从这个角度上来说，我们在K维的数据集上，我们保留主成分时候，只要保留的方差保持在90以上，我们的数据降维就是可行的。方差结实率在sklean中可以通过<code>pca.explained_variance_ratio_</code>获取</p><p>在sklean中我们可以直接设置保留多少方差，来获取最低维度数量。</p><pre><code class="python">pca = PCA()pca.fit(X)cumsum = np.cumsum(pca.explained_variance_ratio_)d = np.argmax(cumsum &gt;=0.95) + 1</code></pre><p>d就是我们获得的最低维度数量，我们再次使用d来执行PCA，获取低维度降维主成分</p><p>或者我们传入一个浮点数，说明要保留的多少方差的主成分，让sklean来获取我们想要的的主成分个数</p><pre><code class="python">pca = PCA(n_components = 0.95)X_preduced = pca.fit_transform(X)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> 深度学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>神经网络-K-means</title>
+      <link href="undefined2019/09/10/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-K-means/"/>
+      <url>2019/09/10/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-K-means/</url>
+      
+        <content type="html"><![CDATA[<h1 id="K-means-思路"><a href="#K-means-思路" class="headerlink" title="K-means 思路"></a>K-means 思路</h1><p>K-mean 是我接触到的第一个非监督学习算法，K-mean算法的思路想法是这样的，在我们获取到的所有Unmark点的空间中选取几个分类点，这些点的位置是我们随机产生的，我们把它们叫做聚类中心，我们将其分为两个类C1,C2叙述，我们打算把这批数据分类为两个分类，K-mean是一个迭代方法，他要做的是两个事情，1.簇分配；2.移动聚类中心。迭代所有数据点，计算数据点到两个聚类中心的距离，根据数据点到聚类中心的距离将其分配到C1,C2聚类中，簇分类的操作已经完成，还需要做的就是将聚类中心移动到刚才分配所得到的数据点中心去，具体做法就是计算单个聚类中所有数据点的均值，将聚类中心放置于均值点的位置。两个步骤完成，接下来就是反复循环上面的步骤再次执行检测分类。直到分类不再改变，最终就会找到两个簇</p><h1 id="K-means-算法"><a href="#K-means-算法" class="headerlink" title="K-means 算法"></a>K-means 算法</h1><p>输入：</p><ul><li>K -&gt; 我们想要达到目的分为多少个类别</li><li>Train Set -&gt; 没有标签的数据集{x1,x2,x3,…xm}</li></ul><p>下列是借鉴的Andrew Ng老师机器学习的板书</p><pre><code class="python">Randomly initialize K cluster centroids u1,u2,u3...ukRepeat{    for i = 1 to m:        c(i) := 离x(i)点最近的聚类中心分类 min||x(i) - u(k)||^2    for k = 1 to K:        u(k) := 分配给集群簇的点的平均        # 例如：分配给C2的点为x(1),x(3),x(6),x(10)，计算u(2) = 1/4[x(1)+x(3)+x(6)+x(10)]}</code></pre><p>分类计算分配的点，如果发现有聚类中心u没有被分配点，可以选择删除聚类中心，但是会减少分类。</p><h1 id="K-mean-Optimization-Objective"><a href="#K-mean-Optimization-Objective" class="headerlink" title="K-mean Optimization Objective"></a>K-mean Optimization Objective</h1><p>K-mean 的优化目标最小化代价函数,最小化目标代价函数，最小化每个分类点到聚类中心的距离的平均</p><p><img src="kmeanOptimization.png" alt="kmeanoptimization"></p><h1 id="K-mean-Random-initialization"><a href="#K-mean-Random-initialization" class="headerlink" title="K-mean Random initialization"></a>K-mean Random initialization</h1><p>良好的初始化方法将会给模型带来一个好的分类，如何初始化聚合中心将会决定你获得到的结果好坏，不至于模型在数据集上坏掉</p><p>那么如何初始化模型的聚合中心，才能获得更好的模型，而且跳出局部最优</p><p>多次执行K-mean的方法</p><pre><code class="python">FOR i = 1 to 100{    Randomly initialize K-means.    Run K-means .Get c(1),...c(m),u(1),...u(K) 执行K-means 获得结果及聚类    计算成本函数Function(distortion)        J(c(1)...c(m),u1,...uK)}</code></pre><p>经过100次的计算我们获得了100中分类结果聚类数据，从中选取最优的，畸变值最低的cluster</p><h1 id="K-means-如何选择参数K"><a href="#K-means-如何选择参数K" class="headerlink" title="K-means 如何选择参数K"></a>K-means 如何选择参数K</h1><h2 id="肘部方法"><a href="#肘部方法" class="headerlink" title="肘部方法"></a>肘部方法</h2><p>通过从小改变K的值，对数据集做K-means，计算成本函数值。通过绘制K值与成本函数J的值的图像，观察成本函数下降趋势，转折肘部为佳选。</p><p><img src="elbow.png" alt="elbow"></p><p>肘部方法在某些成本函数下降平缓的情况下，无法作用</p><h2 id="从使用及商业角度考量"><a href="#从使用及商业角度考量" class="headerlink" title="从使用及商业角度考量"></a>从使用及商业角度考量</h2><p>从目的和商业角度考量K值应该取多少合适</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> 深度学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>神经网络-Error Metrics for Skewed Classes</title>
       <link href="undefined2019/09/06/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Error-Metrics-for-Skewed-Classes/"/>
       <url>2019/09/06/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Error-Metrics-for-Skewed-Classes/</url>

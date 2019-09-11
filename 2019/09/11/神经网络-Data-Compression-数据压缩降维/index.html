@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="杨乘 Blog">
+    <meta name="author" content="Tony">
+    <meta name="keywords" content>
+    <title>神经网络-Data Compression 数据压缩降维 ~ Tony&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期三, 九月 11日 2019, 9:10 上午</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>通常我们的数据集的特征会有很多，有部分特征会产生冗余，可以使用降维的方式去降低特征的维度，将3D的特征降维成为2D将2D降低成为1D。想法是，在避免丢失信息的情况下将多维度数据投影到一条直线或一个平面上，这条直线并不是坐标轴。这样可以加快我们后面算法的运算速度。</p>
+<p><img src="datacompression.png" alt="kmeanoptimization"></p>
+<h1 id="主成分"><a href="#主成分" class="headerlink" title="主成分"></a>主成分</h1><p>主成分分析可以在训练集中识别出那一条轴对差异性的贡献度最高，</p>
+<h2 id="如何找到主成分"><a href="#如何找到主成分" class="headerlink" title="如何找到主成分"></a>如何找到主成分</h2><p>有一种标准举证分解技术，叫做奇异值分解。他会将训练集矩阵X分解成为三个矩阵的点积U·Sigma·V^T,其中V^T包含我们所想要的所有主成分</p>
+<h2 id="Principal-Componet-Analysis-PCA"><a href="#Principal-Componet-Analysis-PCA" class="headerlink" title="Principal Componet Analysis (PCA)"></a>Principal Componet Analysis (PCA)</h2><ul>
+<li>获取数据x1,x2,x3…xm</li>
+<li>先对数据进行均值归一化,计算均值，然后使每个样本数据减去均值，使用xi - uj,uj为均值<!-- u_j = \frac1m \sum_{i=1}^{m}x_j^{(i)} -->
+<img src="meanscalar.png" alt="meanscalar"></li>
+<li>在低维子空间中寻找一个向量或者一个面来投影我们所有的数据点<ul>
+<li>计算”协方差”convariance matrix 获取主成分  <!-- \Sigma = \frac1m \sum_{i = 1}^{n}(x^{(i)})(x^{(i)})^T -->
+  <img src="computeconvariancematrix.png" alt="computeconvariancematrix"></li>
+<li>我们可以使用munpy中的svd()函数获取训练集中的所有主成分，下列示例我们获取主成分中的前两个主成分</li>
+</ul>
+</li>
+</ul>
+<pre><code class="python">X_centered = X - X.mean(axis = 0)
+U,s,V = np.linalg.svd(X_centered)
+c1 = V.T[:,0]
+c2 = V.T[:,1]</code></pre>
+<ul>
+<li>我们已经确定获取到了所有主成分，就可以将数据集投影到前d个主成分定义的超平面上从而将数据集维度从n维度，降低到了d个维度，需要将数据集投影到前d个主成分上只需要将训练集与前d个主成分组成的矩阵点积即可。<ul>
+<li>X_{d-proj} = X · Wd      ；Wd为前d个主成分组合矩阵</li>
+</ul>
+</li>
+</ul>
+<pre><code class="python">W2 = V.T[:,:2]
+X2D = X_centered.dot(W2)
+</code></pre>
+<p>这样实现了在尽可能保留多差异性的同时，将任意数据集降低到任意维度</p>
+<p>另：sklean中的PCA</p>
+<pre><code class="python">from sklean.decomposition import PCA
+pca = PCA(n_components = 2)
+X2D = pca.fit_transform(X)</code></pre>
+<p>通过<code>pca.components_</code>获取主成分例如获取第一个主成分<code>pca.components_.T[:,0]</code></p>
+<h1 id="方差解释率"><a href="#方差解释率" class="headerlink" title="方差解释率"></a>方差解释率</h1><p>非常有用的主成分信息是主成分的方差解释率。他表示的是每个主成分对数据集方差的贡献程度，从这个角度上来说，我们在K维的数据集上，我们保留主成分时候，只要保留的方差保持在90以上，我们的数据降维就是可行的。方差结实率在sklean中可以通过<code>pca.explained_variance_ratio_</code>获取</p>
+<p>在sklean中我们可以直接设置保留多少方差，来获取最低维度数量。</p>
+<pre><code class="python">pca = PCA()
+pca.fit(X)
+cumsum = np.cumsum(pca.explained_variance_ratio_)
+d = np.argmax(cumsum &gt;=0.95) + 1</code></pre>
+<p>d就是我们获得的最低维度数量，我们再次使用d来执行PCA，获取低维度降维主成分</p>
+<p>或者我们传入一个浮点数，说明要保留的多少方差的主成分，让sklean来获取我们想要的的主成分个数</p>
+<pre><code class="python">pca = PCA(n_components = 0.95)
+X_preduced = pca.fit_transform(X)</code></pre>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/0x2e/Material-T" target="_blank" rel="nofollow noopener"> <b>Material-T</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "神经网络-Data Compression 数据压缩降维&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

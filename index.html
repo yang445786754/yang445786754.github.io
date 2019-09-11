@@ -106,6 +106,103 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/11/神经网络-Data-Compression-数据压缩降维/">
+                <p class="h4 index-header">神经网络-Data Compression 数据压缩降维</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">通常我们的数据集的特征会有很多，有部分特征会产生冗余，可以使用降维的方式去降低特征的维度，将3D的特征降维成为2D将2D降低成为1D。想法是，在避免丢失信息的情况下将多维度数据投影到一条直线或一个平面上，这条直线并不是坐标轴。这样可以加快我们后面算法的运算速度。
+
+主成分主成分分析可以在训练集中识别出那一条轴对差异性的贡献度最高，
+如何找到主成分有一种标准举证分解技术，叫做奇异值分解。他会将训练集矩阵X分解成为三个矩阵的点积U·Sigma·V^T,其中V^T包含我们所想要的所有主成分
+Principal Componet Analysis (PCA)
+获取数据x1,x2,x3…xm
+先对数据进行均值归一化,计算均值，然后使每个样本数据减去均值，使用xi - uj,uj为均值
+
+在低维子空间中寻找一个向量或者一个面来投影我们所有的数据点
+计算”协方差”convariance matrix 获取主成分  
+  
+我们可以使用munpy中的svd()函数获取训练集中的所有主成分，下列示例我们获取主成分中的前两个主成分
+
+
+
+X_centered = X - X.mean(axis = 0)
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-11
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/10/神经网络-K-means/">
+                <p class="h4 index-header">神经网络-K-means</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">K-means 思路K-mean 是我接触到的第一个非监督学习算法，K-mean算法的思路想法是这样的，在我们获取到的所有Unmark点的空间中选取几个分类点，这些点的位置是我们随机产生的，我们把它们叫做聚类中心，我们将其分为两个类C1,C2叙述，我们打算把这批数据分类为两个分类，K-mean是一个迭代方法，他要做的是两个事情，1.簇分配；2.移动聚类中心。迭代所有数据点，计算数据点到两个聚类中心的距离，根据数据点到聚类中心的距离将其分配到C1,C2聚类中，簇分类的操作已经完成，还需要做的就是将聚类中心移动到刚才分配所得到的数据点中心去，具体做法就是计算单个聚类中所有数据点的均值，将聚类中心放置于均值点的位置。两个步骤完成，接下来就是反复循环上面的步骤再次执行检测分类。直到分类不再改变，最终就会找到两个簇
+K-means 算法输入：
+
+K -&gt; 我们想要达到目的分为多少个类别
+Train Set -&gt; 没有标签的数据集{x1,x2,x3,…xm}
+
+下列是借鉴的Andrew Ng老师机器学习的板书
+Randomly initialize K cluster centroid</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-10
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/06/神经网络-Error-Metrics-for-Skewed-Classes/">
                 <p class="h4 index-header">神经网络-Error Metrics for Skewed Classes</p>
                 <div class="index-excerpt">
@@ -480,113 +577,6 @@ Git fetchGit Fetch 命令是将远程版本库中的最新版本内容单纯拉�
             
                 <div>
                     <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-16
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/MTP">MTP</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/MTP">MTP</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2018/10/10/MTP综合管理技能提升培训（四）/">
-                <p class="h4 index-header">MTP综合管理技能提升培训（四）</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">沟通沟通是以解决问题，达成一致的目标为方向的
-因此，所有场合的沟通，是需要肯定对方。
-所有的沟通都一肯定对方为主
-沟通批评的三步走法则
-肯定 先肯定对方
-批评 在就事论事，高表扬 ，低批评
-信任 信任对方
-
-管理学管理的重心管理的重心不应该是工作和物质上的因素，应该把目光转到人的因素上去，人被重视了以后，就会更加卖力，做的更加出色
-目标的管理并不是管理目标，而是管理从目标到得到成果的全过程
-目标的制定目的目标计划
-目的：努力的方向
-目标：预期的结果
-计划：为实现目标和目的，设定安排好 责任人、实施方法、时间日程
-
-做好目标，考虑做什么样的人，成就什么样的事业，才会向着自己的方向前进
-制定目标的好处
-目标是行动的基础、导航，为行动指明方向
-有目标才能有效的利用资源，不会漫无目的
-达成目标后，有成就感，有激励的作用
-
-企业的绩效需要从四个方面来衡量企业的绩效不能只从财务指标角度来衡量考虑
-应该从财务、客户、内部流程、学习与成长 四个层面来衡量企业的业绩
-目标的制定
-高层基于战略通过SWOT分析指定整体目标
-遵循SMART原则
-目标层级清晰
-目标数量3-5个
-由上而下 基于事实 逐层分解 参</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-10
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/MTP">MTP</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/MTP">MTP</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2018/08/06/MTP综合管理技能提升培训（一）/">
-                <p class="h4 index-header">MTP综合管理技能提升培训（一）</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">1.知识体系MTP综合管理技能 知识体系 ：① 管理心理学 ②九型人格 ③神经语言程序学 ④教练技术 ⑤管理培训计划
-2.管理技能架构对于自己（角色，心态）：管理好自己的角色和心态对于人（培养，沟通，激励）：做好教练，教练（教练技术一项通过改善被教练者心智模式来发挥其潜能和提升效率的管理技术）对于事（计划，指挥，控制）：顾问 给予做事的方法
-3.缺点，盲点失败是发现自己盲点的绝佳机会，失败中自我反思失败原因
-4.优秀管理者的素质模型①领袖素质（决定管理层高低）：激励 负责任 信任 共赢②基本管理能力：科学决策 授权 沟通 目标方向③人力资源管理能力（非人力资源管理技能）：选育用留④业务管理能力:专业知识和业务管理能力
-5.信念信念决定人生高度，扩宽自己的信念，则会有更大的成果 
-6.素质领袖发挥自己的优势，弥补自己最大的缺陷
-7.称职？何为称职  人总是处于有挑战的位置，每个人的职位应为 20%的挑战 + 80%的把握  
-因此，需要①包容上司处于不胜任的状态②接纳自己的不足③洞察下属是否有超胜任及超不胜任的情况
-8.探秘术凡事，先“横推”，后“下切”
-9.管理者角色的认知企业中的管理</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-08-06
                     &nbsp;&nbsp;
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
