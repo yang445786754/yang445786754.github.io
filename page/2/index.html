@@ -317,6 +317,7 @@ Zabbix busy poller processes, in %                      StartPoller</div>
 <script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
 <script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
 <script src="/js/main.js"></script>
+<script src="/js/pageguard.min.js"></script>
 
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
@@ -359,7 +360,19 @@ Zabbix busy poller processes, in %                      StartPoller</div>
         for (item of el) {
             res.push(".markdown-body > " + item)
         }
-        anchors.add(res.join(", "))
+        anchors.add(res.join(", "));
+
+        // anti
+        
+          var anticopy_key = PageGuard.antiCopy();
+        
+        
+          var detectDevTools_key = PageGuard.detectDevTools(function () {
+          // Your codes will run when developers tools is opening
+              window.document.body.innerHTML = 'No copying or analyzing.';
+              console.clear();
+            });
+        
     </script>
 
 
@@ -373,6 +386,7 @@ Zabbix busy poller processes, in %                      StartPoller</div>
             this.onclick = null
         }
     </script>
+
 
 </body>
 </html>
