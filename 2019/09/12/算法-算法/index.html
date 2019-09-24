@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>归档 ~ Tony&#39;s Blog</title>
+    <title>算法-算法 ~ Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,13 +77,16 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
                     <span class="h2" id="subtitle">
                         
                     </span>
+                    
+                        <br>
+                        <p>星期四, 九月 12日 2019, 4:28 下午</p>
                     
                 </div>
             </div>
@@ -93,34 +96,88 @@
 
 <main>
     
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>算法：即计算机处理信息的本质。解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。</p>
+<h1 id="算法的特性"><a href="#算法的特性" class="headerlink" title="算法的特性"></a>算法的特性</h1><ol>
+<li>输入</li>
+<li>输出</li>
+<li>有穷性：算法在有限步骤之内结束，而不是无线循环</li>
+<li>可行性：该方法可以被实现，在有限时间内完成</li>
+<li>确切性：每个步骤有确切的定义</li>
+</ol>
+<h1 id="算法衡量"><a href="#算法衡量" class="headerlink" title="算法衡量"></a>算法衡量</h1><h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>执行算法所需要的计算工作量。百度百科上的定义：一般来说，计算机算法是问题规模n 的函数f(n)，算法的时间复杂度也因此记做。<br><code>T(n)=Ο(f(n))</code><br>因此，问题的规模n 越大，算法执行的时间的增长率与f(n) 的增长率正相关，称作渐进时间复杂度（Asymptotic Time Complexity）。</p>
+<h3 id="计算时间复杂度"><a href="#计算时间复杂度" class="headerlink" title="计算时间复杂度"></a>计算时间复杂度</h3><ol>
+<li>基本操作，只有常数项，认为时间复杂程度为O(1)</li>
+<li>顺序结构，时间复杂度按照加法进行计算</li>
+<li>循环结构，时间复杂程度按照乘法计算</li>
+<li>分支结构，时间复杂程度按照取最大值计算</li>
+<li>取最高次项作为时间复杂度</li>
+<li>无特殊说明时间复杂度均为最坏时间复杂度</li>
+</ol>
+<h3 id="评判"><a href="#评判" class="headerlink" title="评判"></a>评判</h3><p><code>O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)</code></p>
+<h3 id="python-内置时间分析"><a href="#python-内置时间分析" class="headerlink" title="python 内置时间分析"></a>python 内置时间分析</h3><p>timeit模块测试</p>
+<pre><code class="python">from timeit import Timer
+
+timer = Timer(&quot;func()&quot;,&quot;from __main__ import func&quot;)
+timer.timeit(number = 1000)</code></pre>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>算法的空间复杂度是指算法需要消耗的内存空间。其计算和表示方法与时间复杂度类似，一般都用复杂度的渐近性来表示。</p>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合</p>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
                             
-
-<div class="list-group">
-    <p class="h4">共计 18 篇文章</p>
-    <hr>
-    
-        
-            
-            <p class="h5">2017</p>
-        
-        <a href="/2017/09/22/Zabbix-Server-配置优化/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">Zabbix Server 配置优化</span>
-            <span style="float: right;">09-22</span>
-        </a>
-    
-</div>
-
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
         </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
     
 </main>
 
@@ -166,6 +223,11 @@
 <script src="/js/main.js"></script>
 <script src="/js/pageguard.min.js"></script>
 
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
     <script>
@@ -181,7 +243,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "归档&nbsp;",
+                "算法-算法&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,

@@ -4,6 +4,131 @@
   
     
     <entry>
+      <title>数据结构-队列(Queue)</title>
+      <link href="undefined2019/09/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97-Queue/"/>
+      <url>2019/09/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97-Queue/</url>
+      
+        <content type="html"><![CDATA[<p>队列（Queue）是只允许在一端进行插入操作，而在另一端进行删除操作的线性表</p><p>队列是一种先进先出，First in First out ,FIFO的线性表，允许一端插入，另一端删除输出，而不允许在中间位置操作。</p><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>我通过顺序list实现，会产生入队和出队的时间复杂度问题,通过实际问题考虑后决定</p><ul><li>后入头出<ul><li>入队时间复杂度为O(1)</li><li>出队时间复杂度为O(n)</li></ul></li><li>头入后出<ul><li>入队时间复杂度为O(n)</li><li>出队时间复杂度为O(1)</li></ul></li></ul><pre><code class="python">#!/usr/bin/env python# -*- coding:utf-8 -*-# @File : Queue.py# @Time : 2019/9/24 11:28# @Author : Tony_9410# @contact: tony_9410@foxmail.com# @Software: PyCharmclass Queue:    &quot;&quot;&quot;队列&quot;&quot;&quot;    def __init__(self):        self.__list = []    def enqueue(self,item):        &quot;&quot;&quot;入队&quot;&quot;&quot;        self.__list.append(item)        # self.__list.insert(0,item)    def dequeue(self):        &quot;&quot;&quot;出队&quot;&quot;&quot;        return self.__list.pop(0)        # return self.__list.pop()    def is_empty(self):        return not self.__list    def size(self):        return len(self.__list)if __name__ == &#39;__main__&#39;:    q = Queue()    for i in range(10):        q.enqueue(i)    for i in range(10):        print(q.dequeue())</code></pre><h1 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h1><p>两端均可增可取</p><pre><code class="python">class Deque:    &quot;&quot;&quot;双端队列&quot;&quot;&quot;    def __init__(self):        self.__list = []    def add_front(self,item):        self.__list.insert(0,item)    def add_rear(self,item):        self.__list.append(item)    def pop_front(self):        return self.__list.pop(0)    def pop_rear(self):        return self.__list.pop()    def is_empty(self):        return not self.__list    def size(self):        return len(self.__list)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据结构-栈(Stack)</title>
+      <link href="undefined2019/09/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88-Stack/"/>
+      <url>2019/09/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88-Stack/</url>
+      
+        <content type="html"><![CDATA[<p>栈(Stack)，也称为堆栈，是一种容器，可存入数据元素、访问元素、删除元素。特点是：仅允许在栈的一端（栈顶）做数据操作，没有位置上的概念，保证在任何时候操作数据都是最近时间存入的那个数据。</p><p>该数据结构只允许在一端进行操作，因此按照后进先出，LIFO，last in first out 的原理操作</p><h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>实现也可以通过其他结构实现，例子通过列表实现</p><pre><code class="python">#!/usr/bin/env python# -*- coding:utf-8 -*-# @File : Stack.py# @Time : 2019/9/24 11:10 # @Author : Tony_9410# @contact: tony_9410@foxmail.com# @Software: PyCharmclass Stack:    &quot;&quot;&quot;栈&quot;&quot;&quot;    def __init__(self):        self.__list = []    def push(self,item):        &quot;&quot;&quot;压栈&quot;&quot;&quot;        self.__list.append(item)    def pop(self):        &quot;&quot;&quot;出栈&quot;&quot;&quot;        return self.__list.pop()    def peek(self):        &quot;&quot;&quot;返回元素，不出栈&quot;&quot;&quot;        if self.__list:            return self.__list[-1]        else:            return None    def is_empty(self):        return not self.__list    def size(self):        return len(self.__list)if __name__ == &#39;__main__&#39;:    s = Stack()    for i in range(10):        s.push(i)    for i in range(10):        print(s.pop())</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据结构-Python变量的本质</title>
+      <link href="undefined2019/09/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Python%E5%8F%98%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8/"/>
+      <url>2019/09/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Python%E5%8F%98%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8/</url>
+      
+        <content type="html"><![CDATA[<p>Python中和其他语言不同的，没有地址这个专属数据类型的，如C中添加*号则表示地址，而在Python这门高级语言中，是没有地址这个数据类型的。</p><h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>在其他语言中如果需要保存一个int类型的变量，如<code>a = 5</code>,就是将数据5保存在内存当中，而<code>a</code>就是这部分内存的别名。</p><p>而在python当中，在内存中保存数值5后，再在内存中保存一个a的值，a值保存的是数值5的内存地址。</p><p>如果在交换变量的时候。仅仅需要将a，b保存的内存地址进行交换，如<code>a = 5;b = 10;a,b = b,a</code>,就是说，ab在内存中所存储的数据并不是真正的数值，而是数值所在的地址。</p><p>就因为这一点，Python 语言中的变量可以指向任意对象的地址，因此，就是我们所看到的，可以把一个函数赋值给予一个变量。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据结构-链表</title>
+      <link href="undefined2019/09/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
+      <url>2019/09/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/</url>
+      
+        <content type="html"><![CDATA[<p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。</p><p>我每次都会先在百度百科上搜下定义</p><p>链表和顺序表一样，是顺序表，但不是顺序存储的结构，在每个节点（数据存储单元）里存放下一个节点的位置信息（内存地址）。</p><p>链表可以充分利用计算机内存空间，实现灵活的内存动态管理</p><h1 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h1><p>每个节点包含两个域，信息域（元素域）和链接域。尾节点的链接域为空</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>使用python代码实现，并实现部分操作功能，链表是为了更灵活的管理零散非连续的内存空间。</p><pre><code class="python">#!/usr/bin/env python# -*- coding:utf-8 -*-# @File : 单向链表.py# @Time : 2019/9/23 14:20# @Author : Tony_9410# @contact: tony_9410@foxmail.com# @Software: PyCharmclass Node:    &quot;&quot;&quot;节点&quot;&quot;&quot;    def __init__(self,item,next = None):        # 数据        self.item = item        # 指向下一个节点        self.next = nextclass SingleNodeList:    &quot;&quot;&quot;单向链表&quot;&quot;&quot;    def __init__(self,node = None):        # 指向头节点        self.__head = node    def is_empty(self):        &quot;&quot;&quot;返回是否为空&quot;&quot;&quot;        return self.__head == None    def length(self):        &quot;&quot;&quot;返回长度&quot;&quot;&quot;        # 游标指向__head，逐个向后并计数，判断最后的next是否为空，为空则退出        cur = self.__head        count = 0        while cur:            count +=1            cur =cur.next        return count    def travel(self):        &quot;&quot;&quot;遍历整个列表&quot;&quot;&quot;        cur = self.__head        while cur:            print(cur.item,end=&quot;-&gt;&quot;)            cur = cur.next        print(&quot;None&quot;)    def add(self,item):  # O(1)        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;        node = Node(item)        node.next = self.__head        self.__head = node    def append(self,item):  # O(n)        &quot;&quot;&quot;链表尾部条件元素&quot;&quot;&quot;        node = Node(item)        if self.is_empty():            self.__head = node        else:            cur = self.__head            while cur.next:                cur = cur.next            cur.next = node    def insert(self,pos,item):  # O(n)        &quot;&quot;&quot;指定位置添加元素        :param pos 从0开始        :param item 添加的元素        &quot;&quot;&quot;        if pos &lt;= 0:            self.add(item)        elif pos &gt; (self.length() -1):            self.append(item)        else:            pre = self.__head            node = Node(item)            while pos-1:                pre = pre.next                pos -= 1            node.next = pre.next            pre.next = node    def remove(self,item):        &quot;&quot;&quot;删除节点&quot;&quot;&quot;        cur = self.__head        pre = None        while cur:            if cur.item == item:                if pre == None:                    self.__head = cur.next                else:                    pre.next = cur.next                break            else:                pre = cur                cur = cur.next    def search(self,item):  # O(n)        &quot;&quot;&quot;搜索节点 遍历列表返回元素是否存在&quot;&quot;&quot;        cur = self.__head        while cur:            if cur.item == item:                return True            else:                cur = cur.next        return Falseif __name__ == &#39;__main__&#39;:    snl = SingleNodeList()    print(&quot;是否为空&quot;, snl.is_empty())    print(&quot;lenth:&quot;, snl.length())    snl.append(&quot;宇宙&quot;)    snl.append(&quot;地球&quot;)    snl.append(&quot;世界&quot;)    snl.append(&quot;中国&quot;)    snl.append(&quot;北京&quot;)    snl.append(&quot;丰台&quot;)    snl.insert(6,&quot;乱入&quot;)    print(&quot;是否为空&quot;,snl.is_empty())    print(&quot;lenth:&quot;,snl.length())    snl.travel()    snl.remove(&quot;乱入&quot;)    snl.travel()</code></pre><h1 id="单向循环链表"><a href="#单向循环链表" class="headerlink" title="单向循环链表"></a>单向循环链表</h1><p>单向循环链表就是把尾节点指向头节点，形成循环</p><pre><code class="python">#!/usr/bin/env python# -*- coding:utf-8 -*-# @File : 单向循环链表.py# @Time : 2019/9/24 08:20# @Author : Tony_9410# @contact: tony_9410@foxmail.com# @Software: PyCharmclass Node:    &quot;&quot;&quot;节点&quot;&quot;&quot;    def __init__(self,item,next = None):        # 数据        self.item = item        # 指向下一个节点        self.next = nextclass SingleCycleNodeList:    &quot;&quot;&quot;单向链表&quot;&quot;&quot;    def __init__(self,node = None):        self.__head = node        # 将尾节点指向头节点        if node:            node.next = node    def is_empty(self):        &quot;&quot;&quot;返回是否为空&quot;&quot;&quot;        return self.__head == None    def length(self):        &quot;&quot;&quot;返回长度&quot;&quot;&quot;        # 游标指向__head，逐个向后并计数，判断最后的next是否为空，为空则退出        if self.is_empty():            return 0        cur = self.__head        count = 1        while cur.next != self.__head:            count +=1            cur =cur.next        return count    def travel(self):        &quot;&quot;&quot;遍历整个列表&quot;&quot;&quot;        if self.is_empty():            return        cur = self.__head        while cur.next != self.__head:            print(cur.item,end=&quot;-&gt;&quot;)            cur = cur.next        print(cur.item)    def add(self,item):          &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;        node = Node(item)        if self.__head == None:            self.__head = node            node.next = self.__head        cur = self.__head        while cur.next != self.__head:            cur = cur.next        node.next = self.__head        self.__head = node        cur.next = self.__head    def append(self,item):          &quot;&quot;&quot;链表尾部条件元素&quot;&quot;&quot;        node = Node(item)        if self.is_empty():            self.__head = node            node.next = self.__head        else:            cur = self.__head            while cur.next != self.__head:                cur = cur.next            node.next = self.__head            cur.next = node    def insert(self,pos,item):          &quot;&quot;&quot;指定位置添加元素        :param pos 从0开始        :param item 添加的元素        &quot;&quot;&quot;        if pos &lt;= 0:            self.add(item)        elif pos &gt; (self.length() -1):            self.append(item)        else:            pre = self.__head            node = Node(item)            while pos-1:                pre = pre.next                pos -= 1            node.next = pre.next            pre.next = node    def remove(self, item):        &quot;&quot;&quot;删除节点&quot;&quot;&quot;        if self.is_empty():            return        cur = self.__head        pre = None        while cur.next != self.__head:            if cur.item == item:                if cur == self.__head:                    # 头节点                    rear = self.__head                    while rear.next != self.__head:                        rear = rear.next                    self.__head = self.__head.next                    rear.next = self.__head                else:                    pre.next = cur.next                return            else:                pre = cur                cur = cur.next        # 尾节点        if cur.item == item:            # 仅有单个节点            if cur == self.__head:                self.__head = None            else:                pre.next = cur.next    def search(self, item):          &quot;&quot;&quot;搜索节点 遍历列表返回元素是否存在&quot;&quot;&quot;        if self.is_empty():            return False        cur = self.__head        while cur:            if cur.item == item:                return True            else:                cur = cur.next        if cur.item == item:            return True        return False    def testcycle(self):        cur = self.__head        if cur == None:            return 0        while True:            yield cur.item            cur = cur.nextif __name__ == &#39;__main__&#39;:    snl = SingleCycleNodeList()    print(&quot;是否为空&quot;, snl.is_empty())    print(&quot;lenth:&quot;, snl.length())    snl.append(&quot;宇宙&quot;)    snl.append(&quot;地球&quot;)    snl.append(&quot;世界&quot;)    snl.append(&quot;中国&quot;)    snl.append(&quot;北京&quot;)    snl.append(&quot;丰台&quot;)    snl.insert(0,&quot;乱入&quot;)    print(&quot;是否为空&quot;,snl.is_empty())    print(&quot;lenth:&quot;,snl.length())    snl.travel()    snl.remove(&quot;乱入&quot;)    snl.travel()    # 测试循环    i = 10    cycle = snl.testcycle()    while i:        print(next(cycle))        i-=1</code></pre><h1 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h1><p>双向链表中节点存储链接存储上一个节点的内存地址。可以通过单个节点找到上一个节点和下一个节点。</p><pre><code class="python">#!/usr/bin/env python# -*- coding:utf-8 -*-# @File : 双向链表.py# @Time : 2019/9/24 14:20# @Author : Tony_9410# @contact: tony_9410@foxmail.com# @Software: PyCharmclass Node:    &quot;&quot;&quot;节点&quot;&quot;&quot;    def __init__(self,item,prev = None,next = None):        # 指向前一个节点        self.prev = prev        # 数据        self.item = item        # 指向下一个节点        self.next = nextclass DoubleNodeList:    &quot;&quot;&quot;双向链表&quot;&quot;&quot;    def __init__(self,node = None):        # 指向头节点        self.__head = node    def is_empty(self):        &quot;&quot;&quot;返回是否为空&quot;&quot;&quot;        return self.__head is None    def length(self):        &quot;&quot;&quot;返回长度&quot;&quot;&quot;        # 游标指向__head，逐个向后并计数，判断最后的next是否为空，为空则退出        cur = self.__head        count = 0        while cur:            count +=1            cur =cur.next        return count    def travel(self):        &quot;&quot;&quot;遍历整个列表&quot;&quot;&quot;        cur = self.__head        print(&quot;None&quot;,end=&quot;&lt;-&gt;&quot;)        while cur:            print(cur.item,end=&quot;&lt;-&gt;&quot;)            cur = cur.next        print(&quot;None&quot;)    def add(self,item):  # O(1)        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;        node = Node(item)        if self.is_empty():            self.__head = node        else:            node.next = self.__head            self.__head.prev = node            self.__head = node    def append(self,item):  # O(n)        &quot;&quot;&quot;链表尾部条件元素&quot;&quot;&quot;        node = Node(item)        if self.is_empty():            self.__head = node        else:            cur = self.__head            while cur.next:                cur = cur.next            node.prev = cur            cur.next = node    def insert(self,pos,item):  # O(n)        &quot;&quot;&quot;指定位置添加元素        :param pos 从0开始        :param item 添加的元素        &quot;&quot;&quot;        if pos &lt;= 0:            self.add(item)        elif pos &gt; (self.length() -1):            self.append(item)        else:            node = Node(item)            cur = self.__head            while pos:                cur = cur.next                pos -= 1            node.next = cur            node.prev = cur.prev            cur.prev = node            cur.prev.next = node    def remove(self,item):        &quot;&quot;&quot;删除节点&quot;&quot;&quot;        cur = self.__head        while cur:            if cur.item == item:                if cur == self.__head:                    #头节点                    self.__head = cur.next                    if cur.next:                        # 单节点                        cur.next.prev = None                else:                    cur.prev.next = cur.next                    if cur.next:                        # 尾节点                        cur.next.prev = cur.prev                break            else:                cur = cur.next    def search(self,item):  # O(n)        &quot;&quot;&quot;搜索节点 遍历列表返回元素是否存在&quot;&quot;&quot;        cur = self.__head        while cur:            if cur.item == item:                return True            else:                cur = cur.next        return Falseif __name__ == &#39;__main__&#39;:    dnl = DoubleNodeList()    print(&quot;是否为空&quot;, dnl.is_empty())    print(&quot;lenth:&quot;, dnl.length())    dnl.append(&quot;地球&quot;)    dnl.append(&quot;世界&quot;)    dnl.append(&quot;中国&quot;)    dnl.append(&quot;北京&quot;)    dnl.append(&quot;丰台&quot;)    dnl.add(&quot;宇宙&quot;)    dnl.insert(0,&quot;乱入&quot;)    print(&quot;是否为空&quot;,dnl.is_empty())    print(&quot;lenth:&quot;,dnl.length())    dnl.travel()    dnl.remove(&quot;乱入&quot;)    dnl.travel()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>算法-算法</title>
+      <link href="undefined2019/09/12/%E7%AE%97%E6%B3%95-%E7%AE%97%E6%B3%95/"/>
+      <url>2019/09/12/%E7%AE%97%E6%B3%95-%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>算法：即计算机处理信息的本质。解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。</p><h1 id="算法的特性"><a href="#算法的特性" class="headerlink" title="算法的特性"></a>算法的特性</h1><ol><li>输入</li><li>输出</li><li>有穷性：算法在有限步骤之内结束，而不是无线循环</li><li>可行性：该方法可以被实现，在有限时间内完成</li><li>确切性：每个步骤有确切的定义</li></ol><h1 id="算法衡量"><a href="#算法衡量" class="headerlink" title="算法衡量"></a>算法衡量</h1><h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>执行算法所需要的计算工作量。百度百科上的定义：一般来说，计算机算法是问题规模n 的函数f(n)，算法的时间复杂度也因此记做。<br><code>T(n)=Ο(f(n))</code><br>因此，问题的规模n 越大，算法执行的时间的增长率与f(n) 的增长率正相关，称作渐进时间复杂度（Asymptotic Time Complexity）。</p><h3 id="计算时间复杂度"><a href="#计算时间复杂度" class="headerlink" title="计算时间复杂度"></a>计算时间复杂度</h3><ol><li>基本操作，只有常数项，认为时间复杂程度为O(1)</li><li>顺序结构，时间复杂度按照加法进行计算</li><li>循环结构，时间复杂程度按照乘法计算</li><li>分支结构，时间复杂程度按照取最大值计算</li><li>取最高次项作为时间复杂度</li><li>无特殊说明时间复杂度均为最坏时间复杂度</li></ol><h3 id="评判"><a href="#评判" class="headerlink" title="评判"></a>评判</h3><p><code>O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)</code></p><h3 id="python-内置时间分析"><a href="#python-内置时间分析" class="headerlink" title="python 内置时间分析"></a>python 内置时间分析</h3><p>timeit模块测试</p><pre><code class="python">from timeit import Timertimer = Timer(&quot;func()&quot;,&quot;from __main__ import func&quot;)timer.timeit(number = 1000)</code></pre><h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>算法的空间复杂度是指算法需要消耗的内存空间。其计算和表示方法与时间复杂度类似，一般都用复杂度的渐近性来表示。</p><h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>神经网络-Data Compression 数据压缩降维</title>
       <link href="undefined2019/09/11/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Data-Compression-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E9%99%8D%E7%BB%B4/"/>
       <url>2019/09/11/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Data-Compression-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E9%99%8D%E7%BB%B4/</url>

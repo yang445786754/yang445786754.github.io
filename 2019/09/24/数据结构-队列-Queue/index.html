@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>归档 ~ Tony&#39;s Blog</title>
+    <title>数据结构-队列(Queue) ~ Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,13 +77,16 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
                     <span class="h2" id="subtitle">
                         
                     </span>
+                    
+                        <br>
+                        <p>星期二, 九月 24日 2019, 11:28 上午</p>
                     
                 </div>
             </div>
@@ -93,34 +96,140 @@
 
 <main>
     
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>队列（Queue）是只允许在一端进行插入操作，而在另一端进行删除操作的线性表</p>
+<p>队列是一种先进先出，First in First out ,FIFO的线性表，允许一端插入，另一端删除输出，而不允许在中间位置操作。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>我通过顺序list实现，会产生入队和出队的时间复杂度问题,通过实际问题考虑后决定</p>
+<ul>
+<li>后入头出<ul>
+<li>入队时间复杂度为O(1)</li>
+<li>出队时间复杂度为O(n)</li>
+</ul>
+</li>
+<li>头入后出<ul>
+<li>入队时间复杂度为O(n)</li>
+<li>出队时间复杂度为O(1)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File : Queue.py
+# @Time : 2019/9/24 11:28
+# @Author : Tony_9410
+# @contact: tony_9410@foxmail.com
+# @Software: PyCharm
+
+class Queue:
+    &quot;&quot;&quot;队列&quot;&quot;&quot;
+    def __init__(self):
+        self.__list = []
+
+    def enqueue(self,item):
+        &quot;&quot;&quot;入队&quot;&quot;&quot;
+        self.__list.append(item)
+        # self.__list.insert(0,item)
+
+    def dequeue(self):
+        &quot;&quot;&quot;出队&quot;&quot;&quot;
+        return self.__list.pop(0)
+        # return self.__list.pop()
+
+    def is_empty(self):
+        return not self.__list
+
+    def size(self):
+        return len(self.__list)
+
+if __name__ == &#39;__main__&#39;:
+    q = Queue()
+    for i in range(10):
+        q.enqueue(i)
+    for i in range(10):
+        print(q.dequeue())</code></pre>
+<h1 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h1><p>两端均可增可取</p>
+<pre><code class="python">
+class Deque:
+    &quot;&quot;&quot;双端队列&quot;&quot;&quot;
+    def __init__(self):
+        self.__list = []
+
+    def add_front(self,item):
+        self.__list.insert(0,item)
+
+    def add_rear(self,item):
+        self.__list.append(item)
+
+    def pop_front(self):
+        return self.__list.pop(0)
+
+    def pop_rear(self):
+        return self.__list.pop()
+
+    def is_empty(self):
+        return not self.__list
+
+    def size(self):
+        return len(self.__list)
+
+</code></pre>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
                             
-
-<div class="list-group">
-    <p class="h4">共计 18 篇文章</p>
-    <hr>
-    
-        
-            
-            <p class="h5">2017</p>
-        
-        <a href="/2017/09/22/Zabbix-Server-配置优化/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">Zabbix Server 配置优化</span>
-            <span style="float: right;">09-22</span>
-        </a>
-    
-</div>
-
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
         </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
     
 </main>
 
@@ -166,6 +275,11 @@
 <script src="/js/main.js"></script>
 <script src="/js/pageguard.min.js"></script>
 
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
     <script>
@@ -181,7 +295,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "归档&nbsp;",
+                "数据结构-队列(Queue)&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,

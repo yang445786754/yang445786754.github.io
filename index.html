@@ -106,6 +106,259 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/24/数据结构-队列-Queue/">
+                <p class="h4 index-header">数据结构-队列(Queue)</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">队列（Queue）是只允许在一端进行插入操作，而在另一端进行删除操作的线性表
+队列是一种先进先出，First in First out ,FIFO的线性表，允许一端插入，另一端删除输出，而不允许在中间位置操作。
+实现我通过顺序list实现，会产生入队和出队的时间复杂度问题,通过实际问题考虑后决定
+
+后入头出
+入队时间复杂度为O(1)
+出队时间复杂度为O(n)
+
+
+头入后出
+入队时间复杂度为O(n)
+出队时间复杂度为O(1)
+
+
+
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File : Queue.py
+# @Time : 2019/9/24 11:28
+# @Author : Tony_9410
+# @contact: tony_9410@foxmail.com
+# @Software: PyCharm
+
+class Queue:
+    &quot;&quot;&quot;队列&quot;&quot;&quot;
+    def __init__(self):
+        self.__list = []
+
+    def </div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-24
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/24/数据结构-栈-Stack/">
+                <p class="h4 index-header">数据结构-栈(Stack)</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">栈(Stack)，也称为堆栈，是一种容器，可存入数据元素、访问元素、删除元素。特点是：仅允许在栈的一端（栈顶）做数据操作，没有位置上的概念，保证在任何时候操作数据都是最近时间存入的那个数据。
+该数据结构只允许在一端进行操作，因此按照后进先出，LIFO，last in first out 的原理操作
+实现实现也可以通过其他结构实现，例子通过列表实现
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File : Stack.py
+# @Time : 2019/9/24 11:10 
+# @Author : Tony_9410
+# @contact: tony_9410@foxmail.com
+# @Software: PyCharm
+
+class Stack:
+    &quot;&quot;&quot;栈&quot;&quot;&quot;
+    def __init__(self):
+        self.__list = []
+
+    def push(self,item):
+        &quot;&quot;&quot</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-24
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/23/数据结构-Python变量的本质/">
+                <p class="h4 index-header">数据结构-Python变量的本质</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Python中和其他语言不同的，没有地址这个专属数据类型的，如C中添加*号则表示地址，而在Python这门高级语言中，是没有地址这个数据类型的。
+变量在其他语言中如果需要保存一个int类型的变量，如a = 5,就是将数据5保存在内存当中，而a就是这部分内存的别名。
+而在python当中，在内存中保存数值5后，再在内存中保存一个a的值，a值保存的是数值5的内存地址。
+如果在交换变量的时候。仅仅需要将a，b保存的内存地址进行交换，如a = 5;b = 10;a,b = b,a,就是说，ab在内存中所存储的数据并不是真正的数值，而是数值所在的地址。
+就因为这一点，Python 语言中的变量可以指向任意对象的地址，因此，就是我们所看到的，可以把一个函数赋值给予一个变量。
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-23
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/12/数据结构-链表/">
+                <p class="h4 index-header">数据结构-链表</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。
+我每次都会先在百度百科上搜下定义
+链表和顺序表一样，是顺序表，但不是顺序存储的结构，在每个节点（数据存储单元）里存放下一个节点的位置信息（内存地址）。
+链表可以充分利用计算机内存空间，实现灵活的内存动态管理
+单向链表每个节点包含两个域，信息域（元素域）和链接域。尾节点的链接域为空
+实现使用python代码实现，并实现部分操作功能，链表是为了更灵活的管理零散非连续的内存空间。
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-12
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/12/算法-算法/">
+                <p class="h4 index-header">算法-算法</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">算法：即计算机处理信息的本质。解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。
+算法的特性
+输入
+输出
+有穷性：算法在有限步骤之内结束，而不是无线循环
+可行性：该方法可以被实现，在有限时间内完成
+确切性：每个步骤有确切的定义
+
+算法衡量时间复杂度执行算法所需要的计算工作量。百度百科上的定义：一般来说，计算机算法是问题规模n 的函数f(n)，算法的时间复杂度也因此记做。T(n)=Ο(f(n))因此，问题的规模n 越大，算法执行的时间的增长率与f(n) 的增长率正相关，称作渐进时间复杂度（Asymptotic Time Complexity）。
+计算时间复杂度
+基本操作，只有常数项，认为时间复杂程度为O(1)
+顺序结构，时间复杂度按照加法进行计算
+循环结构，时间复杂程度按照乘法计算
+分支结构，时间复杂程度按照取最大值计算
+取最高次项作为时间复杂度
+无特殊说明时间复杂度均为最坏时间复杂度
+
+评判O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-12
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/11/神经网络-Data-Compression-数据压缩降维/">
                 <p class="h4 index-header">神经网络-Data Compression 数据压缩降维</p>
                 <div class="index-excerpt">
@@ -337,258 +590,6 @@ Rando</div>
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
                         
                             <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/08/23/MachineLearning-with-SK-AND-TF-1-端到端的机器学习项目/">
-                <p class="h4 index-header">MachineLearning with SK AND TF (1_端到端的机器学习项目)</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1"># download dataset
-import os
-import tarfile
-import urllib
-
-DOWNLOAD_ROOT = &quot;http://raw.githubusercontent.com/ageron/handson-ml/master/&quot;
-HOUSING_PATH = &quot;datasets/housing&quot;
-HOUSING_URL = DOWNLOAD_ROOT + HOUSING_PATH + &quot;/housing.tgz&quot;
-print(HOUSING_URL)
-
-def fetch_housing_data(housing_url = HOUSING_URL,housing_path = HOUSING_PATH):
-    if not os.path.isdir(housing_path):
-        os.makedirs(housing_path)
-    tgz_path = os.path.join(housing_path,&quot;housing.tgz&quot;)
- </div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
-                            &nbsp;&nbsp;
-                        
-                            <a href="/categories/scikitlearn">scikitlearn</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
-                        
-                            <a href="/tags/BOOK">BOOK</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/08/23/Oracle-中-varchar2-varchar/">
-                <p class="h4 index-header">Oracle 中 varchar2 &amp; varchar </p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">直观varchar – 存放定長的字符数据，最長2000个字符；
-varchar2 – 存放可变长字符数据，最大长度为4000字符。
-隐含1.varchar2把所有字符都占两字节处理(一般情况下)，varchar只对汉字和全角等字符占两字节，数字，英文字符等都是一个字节
-2.VARCHAR2把空串等同于null处理，而varchar仍按照空串处理
-3.VARCHAR2字符要用几个字节存储，要看数据库使用的字符集
-注意：varchar 在获取到字符串时，若字符长度不够，会在数据后方以空格补齐保证定长， varchar2 会以原数据内容进行存储
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
-                            &nbsp;&nbsp;
-                        
-                            <a href="/categories/Oracle">Oracle</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/Oracle">Oracle</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/08/23/Git-Pull-与-Git-Fetch-的区别/">
-                <p class="h4 index-header">Git Pull 与 Git Fetch 的区别</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">说来也惭愧,这是在一场面试中,面试官口述问我的一道题。面试官的原话是这样的：你平时常用Git的话,那请问Git Pull和Git Fetch有什么区别？
-当时我就蒙住了，Git在平时的使用中是挺常用的，公司平时都是小项目，对于代码安全来说并不是特别在意，平时也就用Git Pull直接把服务器上最新的代码给拉取到主分支，再创建分支，在分支上做开发,最后再合并。
-平时也没查过fetch相关的内容，这可不，就只能栽在这了。
-Git PullGit Pull 命令是Git当中将远程版本库中最新的内容拉取到本地的操作，该操作会直接将远程版本库中的内容直接拉取到本地，并将本地内容与拉取的内容做合并，在不经过任何统一的情况下，只要不遇见版本冲突等其他问题，就相当于直接替换了本地的版本内容。
-用法：git pull origin master
-Git fetchGit Fetch 命令是将远程版本库中的最新版本内容单纯拉取到本地的操作，拉取到本地的内容将会成为一个单独的分支，如果不进行后续的操作，主分支将不会做任何修改，也不会替换为远程版本库中的最新内容。需要通过查看是否需要当前更新的内容，然后再将此</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/Git">Git</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/Git">Git</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2018/10/22/MTP综合管理技能提升培训（三）/">
-                <p class="h4 index-header">MTP综合管理技能提升培训（三）</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">管理者应该具备的管理技能沟通协调可行性方案
-
-执行控制
-目标计划
-指挥授权
-培养激励
-
-沟通的六个步骤
-事前准备
-融洽关系
-调查需求
-阐述观点
-处理异议
-达成共识
-
-表扬的艺术高层次的表扬 ， 低层次的批评
-表扬可以对人   批评需要对事
-沟通沟通应该营造良好的氛围。当别人有想法时，应该选择倾听，适当记好笔记。对话的衔接应该多肯定，表达观点应该逻辑清晰，及时响应。沟通思想的同事也需要沟通情感
-沟通的方式涉及到敏感的问题，需要当面说，遇到决策性问题，应该以会议的形式，后期并以纸面形式确定会议内容。
-有的沟通需要冷媒体（白纸黑字），实现有据可查
-有的沟通需要热媒体（面对面的沟通），可以深入人心
-有的沟通需要多媒体，重要性、准确性、多对象性
-注意兼顾效率和效果，查找最可靠的沟通方式
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-22
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/MTP">MTP</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/MTP">MTP</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2018/10/16/MTP综合管理技能提升培训（二）/">
-                <p class="h4 index-header">MTP综合管理技能提升培训（二）</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">1.别人心目中理想的管理者换位思考：发现领导眼中的我什么样的，发现下属眼中我是什么样的
-从而领悟自己在领导眼中和下属眼中最应该提升什么
-2.层级意识建立信任、坦诚关系
-站在上司角度看问题
-试探上司让上司授权，提出合理化的建议，不越级指挥和汇报
-及时提醒上司武略的事情
-不盲从，合理“管理”上司
-3.管理者意识①做管理者要先有 目标感 、全局感
-②不漠视规则
-③做事，快准狠
-④不要低头做事，要学会抬头看路
-⑤循规蹈矩不一定永远有效
-⑥适当敏感和质疑现在的路线是必要的
-⑦及时纠偏非常重要
-4.规矩所有规矩，先坚决执行后，再提出相应的建议
-5.心态正面积极做企业中的发光体，不做黑洞，情绪A（成因）B（看法）C（后果）疗法，把握可控的，控制个人对时间的看法，改变事件的结果
-6.合作共赢寻找合作中的交叉共赢点，把生活、工作、学习当做是合作方。
-寻找共赢点，达到双方共赢的目的
-7.学历&lt;&gt;学习力学历并不等于学习力，继续学习没有什么不好
-8.信任和欣赏没人身上都有值得欣赏的地方，每个人都会向被欣赏的方向努力
-当批评的方式不管用的时候可以试试使用欣赏的方式
-欣赏的三要素：及时 、具体 、发自</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-16
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/MTP">MTP</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/MTP">MTP</a>&nbsp;
                         
                     
                 </div>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="杨乘 Blog">
+    <meta name="author" content="Tony">
+    <meta name="keywords" content>
+    <title>数据结构-链表 ~ Tony&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期四, 九月 12日 2019, 4:28 下午</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。</p>
+<p>我每次都会先在百度百科上搜下定义</p>
+<p>链表和顺序表一样，是顺序表，但不是顺序存储的结构，在每个节点（数据存储单元）里存放下一个节点的位置信息（内存地址）。</p>
+<p>链表可以充分利用计算机内存空间，实现灵活的内存动态管理</p>
+<h1 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h1><p>每个节点包含两个域，信息域（元素域）和链接域。尾节点的链接域为空</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>使用python代码实现，并实现部分操作功能，链表是为了更灵活的管理零散非连续的内存空间。</p>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File : 单向链表.py
+# @Time : 2019/9/23 14:20
+# @Author : Tony_9410
+# @contact: tony_9410@foxmail.com
+# @Software: PyCharm
+
+
+class Node:
+    &quot;&quot;&quot;节点&quot;&quot;&quot;
+    def __init__(self,item,next = None):
+        # 数据
+        self.item = item
+        # 指向下一个节点
+        self.next = next
+
+
+class SingleNodeList:
+    &quot;&quot;&quot;单向链表&quot;&quot;&quot;
+    def __init__(self,node = None):
+        # 指向头节点
+        self.__head = node
+
+    def is_empty(self):
+        &quot;&quot;&quot;返回是否为空&quot;&quot;&quot;
+        return self.__head == None
+
+    def length(self):
+        &quot;&quot;&quot;返回长度&quot;&quot;&quot;
+        # 游标指向__head，逐个向后并计数，判断最后的next是否为空，为空则退出
+        cur = self.__head
+        count = 0
+        while cur:
+            count +=1
+            cur =cur.next
+        return count
+
+    def travel(self):
+        &quot;&quot;&quot;遍历整个列表&quot;&quot;&quot;
+        cur = self.__head
+        while cur:
+            print(cur.item,end=&quot;-&gt;&quot;)
+            cur = cur.next
+        print(&quot;None&quot;)
+
+    def add(self,item):  # O(1)
+        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;
+        node = Node(item)
+        node.next = self.__head
+        self.__head = node
+
+    def append(self,item):  # O(n)
+        &quot;&quot;&quot;链表尾部条件元素&quot;&quot;&quot;
+        node = Node(item)
+        if self.is_empty():
+            self.__head = node
+        else:
+            cur = self.__head
+            while cur.next:
+                cur = cur.next
+            cur.next = node
+
+    def insert(self,pos,item):  # O(n)
+        &quot;&quot;&quot;指定位置添加元素
+        :param pos 从0开始
+        :param item 添加的元素
+        &quot;&quot;&quot;
+        if pos &lt;= 0:
+            self.add(item)
+        elif pos &gt; (self.length() -1):
+            self.append(item)
+        else:
+            pre = self.__head
+            node = Node(item)
+            while pos-1:
+                pre = pre.next
+                pos -= 1
+            node.next = pre.next
+            pre.next = node
+
+
+    def remove(self,item):
+        &quot;&quot;&quot;删除节点&quot;&quot;&quot;
+        cur = self.__head
+        pre = None
+        while cur:
+            if cur.item == item:
+                if pre == None:
+                    self.__head = cur.next
+                else:
+                    pre.next = cur.next
+                break
+            else:
+                pre = cur
+                cur = cur.next
+
+
+    def search(self,item):  # O(n)
+        &quot;&quot;&quot;搜索节点 遍历列表返回元素是否存在&quot;&quot;&quot;
+        cur = self.__head
+        while cur:
+            if cur.item == item:
+                return True
+            else:
+                cur = cur.next
+        return False
+
+
+
+if __name__ == &#39;__main__&#39;:
+    snl = SingleNodeList()
+    print(&quot;是否为空&quot;, snl.is_empty())
+    print(&quot;lenth:&quot;, snl.length())
+    snl.append(&quot;宇宙&quot;)
+    snl.append(&quot;地球&quot;)
+    snl.append(&quot;世界&quot;)
+    snl.append(&quot;中国&quot;)
+    snl.append(&quot;北京&quot;)
+    snl.append(&quot;丰台&quot;)
+    snl.insert(6,&quot;乱入&quot;)
+    print(&quot;是否为空&quot;,snl.is_empty())
+    print(&quot;lenth:&quot;,snl.length())
+
+    snl.travel()
+    snl.remove(&quot;乱入&quot;)
+    snl.travel()</code></pre>
+<h1 id="单向循环链表"><a href="#单向循环链表" class="headerlink" title="单向循环链表"></a>单向循环链表</h1><p>单向循环链表就是把尾节点指向头节点，形成循环</p>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File : 单向循环链表.py
+# @Time : 2019/9/24 08:20
+# @Author : Tony_9410
+# @contact: tony_9410@foxmail.com
+# @Software: PyCharm
+
+
+class Node:
+    &quot;&quot;&quot;节点&quot;&quot;&quot;
+    def __init__(self,item,next = None):
+        # 数据
+        self.item = item
+        # 指向下一个节点
+        self.next = next
+
+
+class SingleCycleNodeList:
+    &quot;&quot;&quot;单向链表&quot;&quot;&quot;
+    def __init__(self,node = None):
+        self.__head = node
+        # 将尾节点指向头节点
+        if node:
+            node.next = node
+
+    def is_empty(self):
+        &quot;&quot;&quot;返回是否为空&quot;&quot;&quot;
+        return self.__head == None
+
+    def length(self):
+        &quot;&quot;&quot;返回长度&quot;&quot;&quot;
+        # 游标指向__head，逐个向后并计数，判断最后的next是否为空，为空则退出
+        if self.is_empty():
+            return 0
+        cur = self.__head
+        count = 1
+        while cur.next != self.__head:
+            count +=1
+            cur =cur.next
+        return count
+
+    def travel(self):
+        &quot;&quot;&quot;遍历整个列表&quot;&quot;&quot;
+        if self.is_empty():
+            return
+        cur = self.__head
+        while cur.next != self.__head:
+            print(cur.item,end=&quot;-&gt;&quot;)
+            cur = cur.next
+        print(cur.item)
+
+    def add(self,item):  
+        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;
+        node = Node(item)
+        if self.__head == None:
+            self.__head = node
+            node.next = self.__head
+        cur = self.__head
+        while cur.next != self.__head:
+            cur = cur.next
+        node.next = self.__head
+        self.__head = node
+        cur.next = self.__head
+
+    def append(self,item):  
+        &quot;&quot;&quot;链表尾部条件元素&quot;&quot;&quot;
+        node = Node(item)
+        if self.is_empty():
+            self.__head = node
+            node.next = self.__head
+        else:
+            cur = self.__head
+            while cur.next != self.__head:
+                cur = cur.next
+            node.next = self.__head
+            cur.next = node
+
+    def insert(self,pos,item):  
+        &quot;&quot;&quot;指定位置添加元素
+        :param pos 从0开始
+        :param item 添加的元素
+        &quot;&quot;&quot;
+        if pos &lt;= 0:
+            self.add(item)
+        elif pos &gt; (self.length() -1):
+            self.append(item)
+        else:
+            pre = self.__head
+            node = Node(item)
+            while pos-1:
+                pre = pre.next
+                pos -= 1
+            node.next = pre.next
+            pre.next = node
+
+    def remove(self, item):
+        &quot;&quot;&quot;删除节点&quot;&quot;&quot;
+        if self.is_empty():
+            return
+        cur = self.__head
+        pre = None
+        while cur.next != self.__head:
+            if cur.item == item:
+                if cur == self.__head:
+                    # 头节点
+                    rear = self.__head
+                    while rear.next != self.__head:
+                        rear = rear.next
+                    self.__head = self.__head.next
+                    rear.next = self.__head
+
+                else:
+                    pre.next = cur.next
+                return
+            else:
+                pre = cur
+                cur = cur.next
+        # 尾节点
+        if cur.item == item:
+            # 仅有单个节点
+            if cur == self.__head:
+                self.__head = None
+            else:
+                pre.next = cur.next
+
+    def search(self, item):  
+        &quot;&quot;&quot;搜索节点 遍历列表返回元素是否存在&quot;&quot;&quot;
+        if self.is_empty():
+            return False
+        cur = self.__head
+        while cur:
+            if cur.item == item:
+                return True
+            else:
+                cur = cur.next
+        if cur.item == item:
+            return True
+        return False
+
+    def testcycle(self):
+        cur = self.__head
+        if cur == None:
+            return 0
+        while True:
+            yield cur.item
+            cur = cur.next
+
+
+if __name__ == &#39;__main__&#39;:
+    snl = SingleCycleNodeList()
+    print(&quot;是否为空&quot;, snl.is_empty())
+    print(&quot;lenth:&quot;, snl.length())
+    snl.append(&quot;宇宙&quot;)
+    snl.append(&quot;地球&quot;)
+    snl.append(&quot;世界&quot;)
+    snl.append(&quot;中国&quot;)
+    snl.append(&quot;北京&quot;)
+    snl.append(&quot;丰台&quot;)
+    snl.insert(0,&quot;乱入&quot;)
+    print(&quot;是否为空&quot;,snl.is_empty())
+    print(&quot;lenth:&quot;,snl.length())
+
+    snl.travel()
+    snl.remove(&quot;乱入&quot;)
+    snl.travel()
+
+    # 测试循环
+    i = 10
+    cycle = snl.testcycle()
+    while i:
+        print(next(cycle))
+        i-=1
+</code></pre>
+<h1 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h1><p>双向链表中节点存储链接存储上一个节点的内存地址。可以通过单个节点找到上一个节点和下一个节点。</p>
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+# @File : 双向链表.py
+# @Time : 2019/9/24 14:20
+# @Author : Tony_9410
+# @contact: tony_9410@foxmail.com
+# @Software: PyCharm
+
+
+class Node:
+    &quot;&quot;&quot;节点&quot;&quot;&quot;
+    def __init__(self,item,prev = None,next = None):
+        # 指向前一个节点
+        self.prev = prev
+        # 数据
+        self.item = item
+        # 指向下一个节点
+        self.next = next
+
+
+class DoubleNodeList:
+    &quot;&quot;&quot;双向链表&quot;&quot;&quot;
+    def __init__(self,node = None):
+        # 指向头节点
+        self.__head = node
+
+    def is_empty(self):
+        &quot;&quot;&quot;返回是否为空&quot;&quot;&quot;
+        return self.__head is None
+
+    def length(self):
+        &quot;&quot;&quot;返回长度&quot;&quot;&quot;
+        # 游标指向__head，逐个向后并计数，判断最后的next是否为空，为空则退出
+        cur = self.__head
+        count = 0
+        while cur:
+            count +=1
+            cur =cur.next
+        return count
+
+    def travel(self):
+        &quot;&quot;&quot;遍历整个列表&quot;&quot;&quot;
+        cur = self.__head
+        print(&quot;None&quot;,end=&quot;&lt;-&gt;&quot;)
+        while cur:
+            print(cur.item,end=&quot;&lt;-&gt;&quot;)
+            cur = cur.next
+        print(&quot;None&quot;)
+
+    def add(self,item):  # O(1)
+        &quot;&quot;&quot;链表头部添加元素&quot;&quot;&quot;
+        node = Node(item)
+        if self.is_empty():
+            self.__head = node
+        else:
+            node.next = self.__head
+            self.__head.prev = node
+            self.__head = node
+
+    def append(self,item):  # O(n)
+        &quot;&quot;&quot;链表尾部条件元素&quot;&quot;&quot;
+        node = Node(item)
+        if self.is_empty():
+            self.__head = node
+        else:
+            cur = self.__head
+            while cur.next:
+                cur = cur.next
+            node.prev = cur
+            cur.next = node
+
+    def insert(self,pos,item):  # O(n)
+        &quot;&quot;&quot;指定位置添加元素
+        :param pos 从0开始
+        :param item 添加的元素
+        &quot;&quot;&quot;
+        if pos &lt;= 0:
+            self.add(item)
+        elif pos &gt; (self.length() -1):
+            self.append(item)
+        else:
+            node = Node(item)
+            cur = self.__head
+            while pos:
+                cur = cur.next
+                pos -= 1
+            node.next = cur
+            node.prev = cur.prev
+            cur.prev = node
+            cur.prev.next = node
+
+
+    def remove(self,item):
+        &quot;&quot;&quot;删除节点&quot;&quot;&quot;
+        cur = self.__head
+        while cur:
+            if cur.item == item:
+                if cur == self.__head:
+                    #头节点
+                    self.__head = cur.next
+                    if cur.next:
+                        # 单节点
+                        cur.next.prev = None
+                else:
+                    cur.prev.next = cur.next
+                    if cur.next:
+                        # 尾节点
+                        cur.next.prev = cur.prev
+                break
+            else:
+                cur = cur.next
+
+
+    def search(self,item):  # O(n)
+        &quot;&quot;&quot;搜索节点 遍历列表返回元素是否存在&quot;&quot;&quot;
+        cur = self.__head
+        while cur:
+            if cur.item == item:
+                return True
+            else:
+                cur = cur.next
+        return False
+
+
+
+if __name__ == &#39;__main__&#39;:
+    dnl = DoubleNodeList()
+    print(&quot;是否为空&quot;, dnl.is_empty())
+    print(&quot;lenth:&quot;, dnl.length())
+    dnl.append(&quot;地球&quot;)
+    dnl.append(&quot;世界&quot;)
+    dnl.append(&quot;中国&quot;)
+    dnl.append(&quot;北京&quot;)
+    dnl.append(&quot;丰台&quot;)
+    dnl.add(&quot;宇宙&quot;)
+    dnl.insert(0,&quot;乱入&quot;)
+    print(&quot;是否为空&quot;,dnl.is_empty())
+    print(&quot;lenth:&quot;,dnl.length())
+
+    dnl.travel()
+    dnl.remove(&quot;乱入&quot;)
+    dnl.travel()</code></pre>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/0x2e/Material-T" target="_blank" rel="nofollow noopener"> <b>Material-T</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+<script src="/js/pageguard.min.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "数据结构-链表&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "));
+
+        // anti
+        
+          var anticopy_key = PageGuard.antiCopy();
+        
+        
+          var detectDevTools_key = PageGuard.detectDevTools(function () {
+          // Your codes will run when developers tools is opening
+              window.document.body.innerHTML = 'No copying or analyzing.';
+              console.clear();
+            });
+        
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+
+</body>
+</html>
