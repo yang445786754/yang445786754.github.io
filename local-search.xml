@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>RDS-MYSQL事务锁及解决办法</title>
+      <link href="undefined2020/07/11/RDS-MYSQL%E4%BA%8B%E5%8A%A1%E9%94%81%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+      <url>2020/07/11/RDS-MYSQL%E4%BA%8B%E5%8A%A1%E9%94%81%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>个人理解，如有错误，请予指出</p><h1 id="介绍·场景"><a href="#介绍·场景" class="headerlink" title="介绍·场景"></a>介绍·场景</h1><p>先解释一下事务，事务是有用户定义的一个服务操作队列，由MYSQL服务器保证这些操作队列再多个客户端并发访问和服务器出现故障时的原子性。</p><p>锁，是用来再多个事务访问同一个对象时，根据这些操作访问同一个对象的向后执行顺序，给事务进行排序执行。当一个事务获取到锁以后，其他的事务将会等待锁的释放，才能继续执行。</p><p>MySQL在进行<code>alter table</code>表结构等改变情况下的DDL操作时，出现大量的<code>Waiting for table metadata lock</code>的等待队列。当执行语句<code>alter table Table</code>之后，后续对Table表的任何操作（包括select操作）都无法进行,将会影响到生产。</p><p>可能造成锁等待的原因：</p><ol><li><p>需要很长执行时间的长事务运行，阻塞了所有的DDL语句，</p></li><li><p>因连接中断等额外因素未按照预期提交事务，当事务执行完毕，但未提交或回滚，而造成的DLL事务阻塞，造成锁表，</p></li><li><p>官方文档中有说明，除了语法错误的情况，其他错误语句（如查询不存在的列）获取到的锁，在这个事务提交或者回滚之前，锁不会被释放。</p></li></ol><h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>先介绍几个表：</p><ul><li><p>information_schema.innodb_trx 当前运行的所有事务</p></li><li><p>information_schema.innodb_locks 当前出现的锁</p></li><li><p>information_schema.innodb_lock_waits 锁表等待的对应关系表</p></li><li><p>performance_schema.events_statements_current 当前时刻每个Session会话正在执行的SQL语句</p></li><li><p>information_schema.processlist 当前正在运行的线程，root 用户可见所有用户的线程</p></li></ul><p>可以使用语句<code>show processlist</code> (也可使用select语句)先查看当前所有用户所有线程的状态，如有大量的线程执行语句处于<code>Waiting for table metadata lock</code> 状态，排除硬件性能造成的等待外，或确定正在操作特长时间的事务，极有可能已经造成锁表导致之后的DLL语句阻塞，</p><pre><code class="sql">mysql&gt; show processlist;</code></pre><p>查询 innodb_trx 获取事务的信息，可以查看当前事务的信息包括所执行的语句、所需要获取的锁、所对应processlist线程表中的ID等信息</p><pre><code class="sql">mysql&gt; select * from information_schema.innodb_trx;</code></pre><p>查询 innodb_locks 获取当前出现的锁情况，</p><pre><code class="sql">mysql&gt; select * from information_schema.innodb_locks;</code></pre><p>查询 innodb_lock_waits 可以获取到目前正在等待获取锁的事务ID，及正在使用锁的ID。</p><pre><code class="sql">mysql&gt; select * from information_schema.innodb_lock_waits;</code></pre><p>我们收集到了上述的信息，如果确定存在异常锁表，我们就可以根据表、查询语句、事务反向查找到正在执行该语句的线程。通过其线程ID将其干掉，马桶就通了。</p><pre><code class="sql">mysql&gt; kill tread_id;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> RDS </category>
+          
+          <category> MYSQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> RDS </tag>
+            
+            <tag> MYSQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数据结构-队列(Queue)</title>
       <link href="undefined2019/09/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97-Queue/"/>
       <url>2019/09/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97-Queue/</url>

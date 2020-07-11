@@ -106,6 +106,47 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/06/神经网络-Random-Initialization/">
+                <p class="h4 index-header">神经网络-Random Initialization</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">在机器学习的过程中参数必然需要进行初始化操作，我们具体把参数初始化为什么较好呢？是否可以将所有的权重向量设置初始化为同样的值，比如0？
+答案是否定的，在吴恩达老师讲解的机器学习课程中，对于这一个初始化做了详细的讲解。
+Zero initialization将所有参数在初始化的时候初始化为0，我们可以试着这么理解，在前端输入层输入了相同的数据，我们根据这个均相同的参数权重去计算下一层的输入。这就意味这我们会以相同的输入函数去计算，对每个输入的sample去训练，这样来说我们下一层的所有输入将会是相同的，这样一来，我们在后面获得的损失函数对前面参数的求导，获得的梯度也会是相同的，根据学习率向着相同的方向做梯度更新以后，获得的参数也将会是相同的。最后在更新以后每层隐含层的参数是相同的，这就意味着整个神经网络参数高度冗余，在最后的输出单元只会得到单个功能。因此zero initialization 在神经网络中是不可行的
+因此我们需要更有特色，更有用的参数权重初始化方法，使得我们的学习是有用的学习，在模型中能有更多的功能，或者这么说，我们可以获得一个更好的，较少冗余的神经网络模型。
+Rando</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-06
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/08/23/MachineLearning-with-SK-AND-TF-1-端到端的机器学习项目/">
                 <p class="h4 index-header">MachineLearning with SK AND TF (1_端到端的机器学习项目)</p>
                 <div class="index-excerpt">
@@ -586,7 +627,7 @@ Zabbix busy poller processes, in %                      StartPoller</div>
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "机器学习 路途艰难 选择的路 永不言弃&nbsp;",
+                "Record Life, Article, Tech&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,

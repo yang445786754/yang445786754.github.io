@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>归档 ~ Tony&#39;s Blog</title>
+    <title>RDS-MYSQL事务锁及解决办法 ~ Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,13 +77,16 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
                     <span class="h2" id="subtitle">
                         
                     </span>
+                    
+                        <br>
+                        <p>星期六, 七月 11日 2020, 10:27 上午</p>
                     
                 </div>
             </div>
@@ -93,52 +96,104 @@
 
 <main>
     
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>个人理解，如有错误，请予指出</p>
+<h1 id="介绍·场景"><a href="#介绍·场景" class="headerlink" title="介绍·场景"></a>介绍·场景</h1><p>先解释一下事务，事务是有用户定义的一个服务操作队列，由MYSQL服务器保证这些操作队列再多个客户端并发访问和服务器出现故障时的原子性。</p>
+<p>锁，是用来再多个事务访问同一个对象时，根据这些操作访问同一个对象的向后执行顺序，给事务进行排序执行。当一个事务获取到锁以后，其他的事务将会等待锁的释放，才能继续执行。</p>
+<p>MySQL在进行<code>alter table</code>表结构等改变情况下的DDL操作时，出现大量的<code>Waiting for table metadata lock</code>的等待队列。当执行语句<code>alter table Table</code>之后，后续对Table表的任何操作（包括select操作）都无法进行,将会影响到生产。</p>
+<p>可能造成锁等待的原因：</p>
+<ol>
+<li><p>需要很长执行时间的长事务运行，阻塞了所有的DDL语句，</p>
+</li>
+<li><p>因连接中断等额外因素未按照预期提交事务，当事务执行完毕，但未提交或回滚，而造成的DLL事务阻塞，造成锁表，</p>
+</li>
+<li><p>官方文档中有说明，除了语法错误的情况，其他错误语句（如查询不存在的列）获取到的锁，在这个事务提交或者回滚之前，锁不会被释放。</p>
+</li>
+</ol>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>先介绍几个表：</p>
+<ul>
+<li><p>information_schema.innodb_trx 当前运行的所有事务</p>
+</li>
+<li><p>information_schema.innodb_locks 当前出现的锁</p>
+</li>
+<li><p>information_schema.innodb_lock_waits 锁表等待的对应关系表</p>
+</li>
+<li><p>performance_schema.events_statements_current 当前时刻每个Session会话正在执行的SQL语句</p>
+</li>
+<li><p>information_schema.processlist 当前正在运行的线程，root 用户可见所有用户的线程</p>
+</li>
+</ul>
+<p>可以使用语句<code>show processlist</code> (也可使用select语句)先查看当前所有用户所有线程的状态，如有大量的线程执行语句处于<code>Waiting for table metadata lock</code> 状态，排除硬件性能造成的等待外，或确定正在操作特长时间的事务，极有可能已经造成锁表导致之后的DLL语句阻塞，</p>
+<pre><code class="sql">mysql&gt; show processlist;</code></pre>
+<p>查询 innodb_trx 获取事务的信息，可以查看当前事务的信息包括所执行的语句、所需要获取的锁、所对应processlist线程表中的ID等信息</p>
+<pre><code class="sql">mysql&gt; select * from information_schema.innodb_trx;</code></pre>
+<p>查询 innodb_locks 获取当前出现的锁情况，</p>
+<pre><code class="sql">mysql&gt; select * from information_schema.innodb_locks;</code></pre>
+<p>查询 innodb_lock_waits 可以获取到目前正在等待获取锁的事务ID，及正在使用锁的ID。</p>
+<pre><code class="sql">mysql&gt; select * from information_schema.innodb_lock_waits;</code></pre>
+<p>我们收集到了上述的信息，如果确定存在异常锁表，我们就可以根据表、查询语句、事务反向查找到正在执行该语句的线程。通过其线程ID将其干掉，马桶就通了。</p>
+<pre><code class="sql">mysql&gt; kill tread_id;</code></pre>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
                             
-
-<div class="list-group">
-    <p class="h4">共计 19 篇文章</p>
-    <hr>
-    
-        
-            
-            <p class="h5">2018</p>
-        
-        <a href="/2018/10/22/MTP综合管理技能提升培训（三）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（三）</span>
-            <span style="float: right;">10-22</span>
-        </a>
-    
-        
-        <a href="/2018/10/16/MTP综合管理技能提升培训（二）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（二）</span>
-            <span style="float: right;">10-16</span>
-        </a>
-    
-        
-        <a href="/2018/10/10/MTP综合管理技能提升培训（四）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（四）</span>
-            <span style="float: right;">10-10</span>
-        </a>
-    
-        
-        <a href="/2018/08/06/MTP综合管理技能提升培训（一）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（一）</span>
-            <span style="float: right;">08-06</span>
-        </a>
-    
-</div>
-
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/RDS">RDS</a>
+                                        &nbsp;
+                                    
+                                        <a class="hover-with-bg" href="/categories/MYSQL">MYSQL</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/RDS">RDS</a>
+                                
+                                    <a class="hover-with-bg" href="/tags/MYSQL">MYSQL</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
         </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
     
 </main>
 
@@ -184,6 +239,11 @@
 <script src="/js/main.js"></script>
 <script src="/js/pageguard.min.js"></script>
 
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
     <script>
@@ -199,7 +259,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "归档&nbsp;",
+                "RDS-MYSQL事务锁及解决办法&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,
