@@ -11,6 +11,22 @@
         <content type="html"><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>先介绍下公司资产项目的逻辑，公司资产项目会从会从多个数据源定时抽取数据并更新资产表。创建的资产表中包含有创建时间<code>auto_now_add</code>字段，更新时间<code>auto_now</code>字段。分别用来记录第一次创建的时间及本条记录更新的时间。</p><p>出现的问题：我们发版的时间是每周日进行升级更新，每次更新时间间隔为7天，业务运营小伙伴在使用过程中发现有大批量的数据突然性的创建时间变更为当天时间，在原有数据上做的标签、外键、备注及其他手工标注的信息一并消失了。</p><h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>经过数据的观测及代码的review。定位到这批数据是经过了7天没有更新数据导致程序的7天过期机制触发导致数据删除，在获取到新的数据后，又进行了创建。并根据git log 查到一个星期前的版本中对一个数据源的更新代码做过修改，在增加了业务逻辑的情况下，更改了数据保存更新的方式，先前的更新方式使用<code>.update_or_create()</code>对数据进行更新及创建操作，由于增加了业务逻辑，把创建和更新的判断分开了，更新数据的时候直接使用前面查询到的QuerySet进行<code>.update(**field)</code>操作。经过团队加上我3人进行了代码review，代码逻辑上没有问题，符合业务逻辑。</p><p>三个人一脸懵逼，关注点只能聚焦在<code>update()</code>方法上了，我们三个开始提出质疑，开始提出使用update方法对数据进行更新尝试，并观察数据中 更新时间字段是否变更。</p><p>对数据使用<code>update_or_create</code> 及 <code>update</code> 并进行了观察，验证了我们的猜想，对QuerySet 使用update，并没有对<code>auto_now</code>字段数据进行更新，</p><h1 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h1><p>我们都知道<code>auto_now_add</code> 及 <code>auto_now</code> 时间属性是在django 层面上对数据进行的一个补充，在创建表的时候并不会在数据库层面创建自更新时间字段，仅仅会在orm层面对数据进行补充更新。这么做是为了迎合一些对数据时间字段不更新的需求，取决于我们的管理控制。</p><p>那么在做什么操作的时候会对时间字段进行更新，什么情况下不会呢？需要做什么操作才能稳定更新时间字段呢？</p><h2 id="save-update-fields-‘updated-time’"><a href="#save-update-fields-‘updated-time’" class="headerlink" title="save(update_fields=[‘updated_time’])"></a>save(update_fields=[‘updated_time’])</h2><p>在对模型使用save()时，分两种情况：</p><ol><li><p>在对字段数据没有进行任何更改的情况下，调用save()方法，不会更新时间字段</p></li><li><p>在对字段数据进行了更改后调用save()方法，更新时间字段</p></li></ol><p>原因：查看了源码，Model会根据save方法中update_fields 参数所指定字段的值对数据进行更新。在对数据进行赋值更新操作之后，在save() 方法的缺省参数<code>update_fields</code> 中会增加上<code>auto_now</code>相关的字段，而在对数据无修改，调用save()方法时，update_fields 默认为空列表，表示对任何数据不进行更新操作。</p><p>解决方案：解决方法很简单，在对数据没有赋值更新操作的情况下，调用save()并传参update_fields，加上希望auto_now的字段， <code>save(update_fields=[&#39;updated_time&#39;])</code></p><h2 id="update"><a href="#update" class="headerlink" title="update()"></a>update()</h2><p>在调用update()更新数据字段时时不会通过model层添加 update_time 字段的，因此不会更新包含auto_now属性的字段。</p><p>在我们需要使用update()批量更新一批QuerySet,并需要更新时间字段的时候，需要使用时赋值auto_now相关的字段。<code>update(update_time=datetime.datime.now())</code></p><h2 id="django-db-connection-cursor-execute"><a href="#django-db-connection-cursor-execute" class="headerlink" title="django.db.connection.cursor().execute()"></a>django.db.connection.cursor().execute()</h2><p>直接使用sql调用更新。一开始写在前面的内容提到，dango 创建表的时候 auto_now 属性并不是直接创建sql层面的自更新时间字段，而是在model层面对时间字段进行管理，赋值更新。</p><p>因此在提交sql更新数据时，也需要一同赋值更新相应的时间字段。</p>]]></content>
       
       
+      <categories>
+          
+          <category> Django </category>
+          
+          <category> ORM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Django </tag>
+            
+            <tag> ORM </tag>
+            
+        </tags>
       
     </entry>
     
