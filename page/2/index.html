@@ -106,6 +106,46 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/06/神经网络-Cross-Validation/">
+                <p class="h4 index-header">神经网络-Cross Validation</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">当我们拿到一批数据，搭建了一个模型，准备为这个模型训练参数的时候，我们使用全部数据对模型计算损失和准确率，这会得到我们在整个训练集上的损失和准确率。这批数据是在我们训练过程中已经使用过的数据，那我们是如何判定这个模型在新的数据上的表现，是出色还是糟糕。
+萌生这种想法，这种想法被称作交叉验证（Cross Validation）。我们拿到一批数据以后，并不是将这批数据全部都喂进我们的模型中，而是将这批数据做拆分，一批数据作为训练集，另外一批作为验证集。这样我们就能保证在验证集中获得的loss和acc是在未知的新数据中得到的。我们就可以以这个来评定我们的模型在新数据中表现的是出色还是糟糕。
+Shuffle Data在拿到一批数据以后，有极大的可能这批数据集是有关联性的，比如是按照时间顺序排列，或者说前面部分是Class1 后面部分是Class2。这样在后面的数据集分离后，获得的数据集将会是不均很的，很可能在训练集当中70%都是Class1分类，而在验证集当中所有都是Class2分类。
+为了避免这个问题的发生，我们的做法是，将数据集打乱，虽说不能完全避免这类情况的发生，但是极大降低了产生的几率</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-06
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/06/神经网络-Random-Initialization/">
                 <p class="h4 index-header">神经网络-Random Initialization</p>
                 <div class="index-excerpt">

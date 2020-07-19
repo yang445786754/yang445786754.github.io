@@ -106,6 +106,32 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2020/07/19/Django-ORM-update-方法更新-auto-now-Field/">
+                <p class="h4 index-header">Django-ORM update() 方法更新 auto-now Field</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">起因先介绍下公司资产项目的逻辑，公司资产项目会从会从多个数据源定时抽取数据并更新资产表。创建的资产表中包含有创建时间auto_now_add字段，更新时间auto_now字段。分别用来记录第一次创建的时间及本条记录更新的时间。
+出现的问题：我们发版的时间是每周日进行升级更新，每次更新时间间隔为7天，业务运营小伙伴在使用过程中发现有大批量的数据突然性的创建时间变更为当天时间，在原有数据上做的标签、外键、备注及其他手工标注的信息一并消失了。
+排查经过数据的观测及代码的review。定位到这批数据是经过了7天没有更新数据导致程序的7天过期机制触发导致数据删除，在获取到新的数据后，又进行了创建。并根据git log 查到一个星期前的版本中对一个数据源的更新代码做过修改，在增加了业务逻辑的情况下，更改了数据保存更新的方式，先前的更新方式使用.update_or_create()对数据进行更新及创建操作，由于增加了业务逻辑，把创建和更新的判断分开了，更新数据的时候直接使用前面查询到的QuerySet进行.update(**field)操作。经过团队加上我3人进行了代码review，代码逻辑上没有问</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-19
+                    &nbsp;&nbsp;
+                    
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2020/07/11/RDS-MYSQL事务锁及解决办法/">
                 <p class="h4 index-header">RDS-MYSQL事务锁及解决办法</p>
                 <div class="index-excerpt">
@@ -543,46 +569,6 @@ True negative
 
 精度越高，模型就越好
 召回率(recal</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-06
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
-                        
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/06/神经网络-Cross-Validation/">
-                <p class="h4 index-header">神经网络-Cross Validation</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">当我们拿到一批数据，搭建了一个模型，准备为这个模型训练参数的时候，我们使用全部数据对模型计算损失和准确率，这会得到我们在整个训练集上的损失和准确率。这批数据是在我们训练过程中已经使用过的数据，那我们是如何判定这个模型在新的数据上的表现，是出色还是糟糕。
-萌生这种想法，这种想法被称作交叉验证（Cross Validation）。我们拿到一批数据以后，并不是将这批数据全部都喂进我们的模型中，而是将这批数据做拆分，一批数据作为训练集，另外一批作为验证集。这样我们就能保证在验证集中获得的loss和acc是在未知的新数据中得到的。我们就可以以这个来评定我们的模型在新数据中表现的是出色还是糟糕。
-Shuffle Data在拿到一批数据以后，有极大的可能这批数据集是有关联性的，比如是按照时间顺序排列，或者说前面部分是Class1 后面部分是Class2。这样在后面的数据集分离后，获得的数据集将会是不均很的，很可能在训练集当中70%都是Class1分类，而在验证集当中所有都是Class2分类。
-为了避免这个问题的发生，我们的做法是，将数据集打乱，虽说不能完全避免这类情况的发生，但是极大降低了产生的几率</div>
                     
                 </div>
             </a>
