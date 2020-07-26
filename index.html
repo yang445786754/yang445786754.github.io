@@ -106,6 +106,60 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2020/07/26/Vue-语法/">
+                <p class="h4 index-header">Vue-语法</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Vue 使用HTML的基本语法。官网一句话
+
+在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件，并把 DOM 操作次数减到最少。
+
+插值文本插值&lt;span v-once&gt;Message: {{ msg }}&lt;/span&gt;
+将 msg 绑定到数据对象中，使用v-once 表示该节点上的数据绑定只渲染一次。如果数据对象中的值发生改变，将不会更新。
+解析html&lt;span v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+
+data () {
+  msg： &quot;This is a Msg:&lt;h1&gt;HELLO!&lt;/h1&gt;&quot;
+}
+数据中的msg将会以html的方式插入到节点中，h1标签将会被浏览器解析
+属性使用 v-bind 将可以向节点传值，绑定数据
+&lt;div :id=&quot;item.id&quot;&gt;&lt;/div&gt;
+HTML中使用js&lt;span&gt;{{ dialogStatus =</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-26
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/Vue">Vue</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/%E5%89%8D%E7%AB%AF">前端</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/Vue">Vue</a>&nbsp;
+                        
+                            <a href="/tags/%E5%89%8D%E7%AB%AF">前端</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2020/07/25/Vue-起步/">
                 <p class="h4 index-header">Vue-起步</p>
                 <div class="index-excerpt">
@@ -135,6 +189,22 @@ DEMO简单的使用vue，就3步，引入js文件，编写模板，实例化Vue�
                     <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-25
                     &nbsp;&nbsp;
                     
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/Vue">Vue</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/%E5%89%8D%E7%AB%AF">前端</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/Vue">Vue</a>&nbsp;
+                        
+                            <a href="/tags/%E5%89%8D%E7%AB%AF">前端</a>&nbsp;
+                        
                     
                 </div>
             
@@ -523,50 +593,6 @@ X_centered = X - X.mean(axis = 0)
             
                 <div>
                     <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-11
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
-                        
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/神经网络-K-means/">
-                <p class="h4 index-header">神经网络-K-means</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">K-means 思路K-mean 是我接触到的第一个非监督学习算法，K-mean算法的思路想法是这样的，在我们获取到的所有Unmark点的空间中选取几个分类点，这些点的位置是我们随机产生的，我们把它们叫做聚类中心，我们将其分为两个类C1,C2叙述，我们打算把这批数据分类为两个分类，K-mean是一个迭代方法，他要做的是两个事情，1.簇分配；2.移动聚类中心。迭代所有数据点，计算数据点到两个聚类中心的距离，根据数据点到聚类中心的距离将其分配到C1,C2聚类中，簇分类的操作已经完成，还需要做的就是将聚类中心移动到刚才分配所得到的数据点中心去，具体做法就是计算单个聚类中所有数据点的均值，将聚类中心放置于均值点的位置。两个步骤完成，接下来就是反复循环上面的步骤再次执行检测分类。直到分类不再改变，最终就会找到两个簇
-K-means 算法输入：
-
-K -&gt; 我们想要达到目的分为多少个类别
-Train Set -&gt; 没有标签的数据集{x1,x2,x3,…xm}
-
-下列是借鉴的Andrew Ng老师机器学习的板书
-Randomly initialize K cluster centroid</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-10
                     &nbsp;&nbsp;
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>

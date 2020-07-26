@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>归档 ~ Tony&#39;s Blog</title>
+    <title>Vue-语法 ~ Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,13 +77,16 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
                     <span class="h2" id="subtitle">
                         
                     </span>
+                    
+                        <br>
+                        <p>星期日, 七月 26日 2020, 4:43 下午</p>
                     
                 </div>
             </div>
@@ -93,34 +96,106 @@
 
 <main>
     
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>Vue 使用HTML的基本语法。官网一句话</p>
+<blockquote>
+<p>在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件，并把 DOM 操作次数减到最少。</p>
+</blockquote>
+<h1 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h1><h2 id="文本插值"><a href="#文本插值" class="headerlink" title="文本插值"></a>文本插值</h2><pre><code class="html">&lt;span v-once&gt;Message: {{ msg }}&lt;/span&gt;</code></pre>
+<p>将 <code>msg</code> 绑定到数据对象中，使用v-once 表示该节点上的数据绑定只渲染一次。如果数据对象中的值发生改变，将不会更新。</p>
+<h2 id="解析html"><a href="#解析html" class="headerlink" title="解析html"></a>解析html</h2><pre><code class="html">&lt;span v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+
+data () {
+  msg： &quot;This is a Msg:&lt;h1&gt;HELLO!&lt;/h1&gt;&quot;
+}</code></pre>
+<p>数据中的msg将会以html的方式插入到节点中，h1标签将会被浏览器解析</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><p>使用 v-bind 将可以向节点传值，绑定数据</p>
+<pre><code class="html">&lt;div :id=&quot;item.id&quot;&gt;&lt;/div&gt;</code></pre>
+<h2 id="HTML中使用js"><a href="#HTML中使用js" class="headerlink" title="HTML中使用js"></a>HTML中使用js</h2><pre><code class="html">&lt;span&gt;{{ dialogStatus == 'Create' ? 'Creating' : 'Updating' }}&lt;/span&gt;</code></pre>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>在 Vue-起步 中提到过使用v-开头定义的特殊属性</p>
+<p>使用<code>v-bind</code>绑定数据</p>
+<p>使用<code>v-model</code> 双向绑定数据</p>
+<p>使用<code>v-on</code> 监听事件</p>
+<h2 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h2><p>今天回溯了一遍Vue的官方教程文档，发现了 2.6.0 以上的版本新增的功能，可以使用动态的参数名</p>
+<pre><code class="html">&lt;a v-bind:[attributeName]=&quot;msg&quot;&gt; ... &lt;/a&gt;
+&lt;a v-bind:[attributeName2]=&quot;method2&quot;&gt; ... &lt;/a&gt;
+
+
+data () {
+  attributeName: &#39;value&#39;,
+  attributeName2: &#39;click&#39;,
+  msg： &quot;This is a Msg.&quot;
+}
+
+method: {
+  method2 () {
+    console.log(&#39;hello~&#39;)
+  }
+}</code></pre>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>以<code>.</code>作为标识特殊后缀。</p>
+<pre><code class="html">&lt;button @click.stop=&quot;saySomthing(msg)&quot;&gt;hello&lt;/button&gt;</code></pre>
+<p>例如上述的修饰符，阻止点击事件冒泡</p>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
                             
-
-<div class="list-group">
-    <p class="h4">共计 22 篇文章</p>
-    <hr>
-    
-        
-            
-            <p class="h5">2017</p>
-        
-        <a href="/2017/09/22/Zabbix-Server-配置优化/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">Zabbix Server 配置优化</span>
-            <span style="float: right;">09-22</span>
-        </a>
-    
-</div>
-
+                                <p>
+                                    <i class="iconfont icon-inbox"></i>
+                                    
+                                        <a class="hover-with-bg" href="/categories/Vue">Vue</a>
+                                        &nbsp;
+                                    
+                                        <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF">前端</a>
+                                        &nbsp;
+                                    
+                                </p>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/Vue">Vue</a>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF">前端</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
         </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
     
 </main>
 
@@ -166,6 +241,11 @@
 <script src="/js/main.js"></script>
 <script src="/js/pageguard.min.js"></script>
 
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
     <script>
@@ -181,7 +261,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "归档&nbsp;",
+                "Vue-语法&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,
