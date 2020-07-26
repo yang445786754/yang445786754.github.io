@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>归档 ~ Tony&#39;s Blog</title>
+    <title>Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,7 +77,7 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/index.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
@@ -101,38 +101,66 @@
                         <div class="col-12 col-md-10 m-auto">
                             
 
-<div class="list-group">
-    <p class="h4">共计 21 篇文章</p>
-    <hr>
-    
+
+    <div class="row mb-4 mx-auto">
         
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2017/09/22/Zabbix-Server-配置优化/">
+                <p class="h4 index-header">Zabbix Server 配置优化</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Zabbix 是一款性能特别高的一款分布式监控报警系统，在平时的运行维护当中，是一款不错的监控软件，可以实施监控服务器以及各种设备设施的状态。
+Zabbix 简单的优化调整由于监控设备的数量是不定的，有些时候因为默认参数配置的不够，会导致Zabbix自身状态不稳定，导致报警。比如说：
+Zabbix unreachable poller processes more than 75% busy
+Zabbix discoverer processes more than 75% busy
+因此，为了Zabbix运行的更加稳定，我们就需要对Zabbix做相应的优化处理
+参数说明这部分很重要
+下面是我们监控项中所有项目所对应的参数配置。
+关于 Zabbix data gathering process busy % 参数
+Zabbix busy trapper processes, in %                     StartTrappers=
+Zabbix busy poller processes, in %                      StartPoller</div>
+                    
+                </div>
+            </a>
+
             
-            <p class="h5">2018</p>
-        
-        <a href="/2018/10/22/MTP综合管理技能提升培训（三）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（三）</span>
-            <span style="float: right;">10-22</span>
-        </a>
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2017-09-22
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E8%BF%90%E7%BB%B4">运维</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/zabbix">zabbix</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/zabbix">zabbix</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+
+
+<nav aria-label="index posts navigation">
+<ul class="pagination pg-blue justify-content-center mt-5">
     
-        
-        <a href="/2018/10/16/MTP综合管理技能提升培训（二）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（二）</span>
-            <span style="float: right;">10-16</span>
-        </a>
+        <li class="page-item">
+        <a class="page-link" href="/page/2/">上一页</a>
+        </li>
     
-        
-        <a href="/2018/10/10/MTP综合管理技能提升培训（四）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（四）</span>
-            <span style="float: right;">10-10</span>
-        </a>
     
-        
-        <a href="/2018/08/06/MTP综合管理技能提升培训（一）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（一）</span>
-            <span style="float: right;">08-06</span>
-        </a>
-    
-</div>
+</ul>
+</nav>
 
                         </div>
                     </div>
@@ -199,7 +227,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "归档&nbsp;",
+                "Record Life, Article, Tech</br>King of Destiny.&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,
