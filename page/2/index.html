@@ -106,6 +106,111 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/12/算法-算法/">
+                <p class="h4 index-header">算法-算法</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">算法：即计算机处理信息的本质。解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。
+算法的特性
+输入
+输出
+有穷性：算法在有限步骤之内结束，而不是无线循环
+可行性：该方法可以被实现，在有限时间内完成
+确切性：每个步骤有确切的定义
+
+算法衡量时间复杂度执行算法所需要的计算工作量。百度百科上的定义：一般来说，计算机算法是问题规模n 的函数f(n)，算法的时间复杂度也因此记做。T(n)=Ο(f(n))因此，问题的规模n 越大，算法执行的时间的增长率与f(n) 的增长率正相关，称作渐进时间复杂度（Asymptotic Time Complexity）。
+计算时间复杂度
+基本操作，只有常数项，认为时间复杂程度为O(1)
+顺序结构，时间复杂度按照加法进行计算
+循环结构，时间复杂程度按照乘法计算
+分支结构，时间复杂程度按照取最大值计算
+取最高次项作为时间复杂度
+无特殊说明时间复杂度均为最坏时间复杂度
+
+评判O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-12
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/11/神经网络-Data-Compression-数据压缩降维/">
+                <p class="h4 index-header">神经网络-Data Compression 数据压缩降维</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">通常我们的数据集的特征会有很多，有部分特征会产生冗余，可以使用降维的方式去降低特征的维度，将3D的特征降维成为2D将2D降低成为1D。想法是，在避免丢失信息的情况下将多维度数据投影到一条直线或一个平面上，这条直线并不是坐标轴。这样可以加快我们后面算法的运算速度。
+
+主成分主成分分析可以在训练集中识别出那一条轴对差异性的贡献度最高，
+如何找到主成分有一种标准举证分解技术，叫做奇异值分解。他会将训练集矩阵X分解成为三个矩阵的点积U·Sigma·V^T,其中V^T包含我们所想要的所有主成分
+Principal Componet Analysis (PCA)
+获取数据x1,x2,x3…xm
+先对数据进行均值归一化,计算均值，然后使每个样本数据减去均值，使用xi - uj,uj为均值
+
+在低维子空间中寻找一个向量或者一个面来投影我们所有的数据点
+计算”协方差”convariance matrix 获取主成分  
+  
+我们可以使用munpy中的svd()函数获取训练集中的所有主成分，下列示例我们获取主成分中的前两个主成分
+
+
+
+X_centered = X - X.mean(axis = 0)
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-11
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/10/神经网络-K-means/">
                 <p class="h4 index-header">神经网络-K-means</p>
                 <div class="index-excerpt">
@@ -468,125 +573,6 @@ Git fetchGit Fetch 命令是将远程版本库中的最新版本内容单纯拉�
             
                 <div>
                     <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-22
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/MTP">MTP</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/MTP">MTP</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2018/10/16/MTP综合管理技能提升培训（二）/">
-                <p class="h4 index-header">MTP综合管理技能提升培训（二）</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">1.别人心目中理想的管理者换位思考：发现领导眼中的我什么样的，发现下属眼中我是什么样的
-从而领悟自己在领导眼中和下属眼中最应该提升什么
-2.层级意识建立信任、坦诚关系
-站在上司角度看问题
-试探上司让上司授权，提出合理化的建议，不越级指挥和汇报
-及时提醒上司武略的事情
-不盲从，合理“管理”上司
-3.管理者意识①做管理者要先有 目标感 、全局感
-②不漠视规则
-③做事，快准狠
-④不要低头做事，要学会抬头看路
-⑤循规蹈矩不一定永远有效
-⑥适当敏感和质疑现在的路线是必要的
-⑦及时纠偏非常重要
-4.规矩所有规矩，先坚决执行后，再提出相应的建议
-5.心态正面积极做企业中的发光体，不做黑洞，情绪A（成因）B（看法）C（后果）疗法，把握可控的，控制个人对时间的看法，改变事件的结果
-6.合作共赢寻找合作中的交叉共赢点，把生活、工作、学习当做是合作方。
-寻找共赢点，达到双方共赢的目的
-7.学历&lt;&gt;学习力学历并不等于学习力，继续学习没有什么不好
-8.信任和欣赏没人身上都有值得欣赏的地方，每个人都会向被欣赏的方向努力
-当批评的方式不管用的时候可以试试使用欣赏的方式
-欣赏的三要素：及时 、具体 、发自</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-16
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/MTP">MTP</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/MTP">MTP</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2018/10/10/MTP综合管理技能提升培训（四）/">
-                <p class="h4 index-header">MTP综合管理技能提升培训（四）</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">沟通沟通是以解决问题，达成一致的目标为方向的
-因此，所有场合的沟通，是需要肯定对方。
-所有的沟通都一肯定对方为主
-沟通批评的三步走法则
-肯定 先肯定对方
-批评 在就事论事，高表扬 ，低批评
-信任 信任对方
-
-管理学管理的重心管理的重心不应该是工作和物质上的因素，应该把目光转到人的因素上去，人被重视了以后，就会更加卖力，做的更加出色
-目标的管理并不是管理目标，而是管理从目标到得到成果的全过程
-目标的制定目的目标计划
-目的：努力的方向
-目标：预期的结果
-计划：为实现目标和目的，设定安排好 责任人、实施方法、时间日程
-
-做好目标，考虑做什么样的人，成就什么样的事业，才会向着自己的方向前进
-制定目标的好处
-目标是行动的基础、导航，为行动指明方向
-有目标才能有效的利用资源，不会漫无目的
-达成目标后，有成就感，有激励的作用
-
-企业的绩效需要从四个方面来衡量企业的绩效不能只从财务指标角度来衡量考虑
-应该从财务、客户、内部流程、学习与成长 四个层面来衡量企业的业绩
-目标的制定
-高层基于战略通过SWOT分析指定整体目标
-遵循SMART原则
-目标层级清晰
-目标数量3-5个
-由上而下 基于事实 逐层分解 参</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2018-10-10
                     &nbsp;&nbsp;
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>

@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>归档 ~ Tony&#39;s Blog</title>
+    <title>Vue-Class和Style绑定 ~ Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,13 +77,16 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
                     <span class="h2" id="subtitle">
                         
                     </span>
+                    
+                        <br>
+                        <p>星期日, 七月 26日 2020, 5:59 下午</p>
                     
                 </div>
             </div>
@@ -93,66 +96,67 @@
 
 <main>
     
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <p>对于 Class 和 Style 的属性值的绑定可以用v-bind 绑定，但是因为这两个属性的特殊性，在这同样的基础上，Vue 对其进行了增强</p>
+<h1 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h1><p>给节点的class属性绑定一个对象，动态的切换class</p>
+<pre><code class="html">&lt;div v-bind:class=&quot;{ active: isActive }&quot;&gt;&lt;/div&gt;</code></pre>
+<p><code>active</code> 为需要绑定的属性值，<code>isActive</code> 为条件。当<code>isActive</code> 为<code>true</code>时将会为这个<div>中的class增加一个<code>active</code>值</div></p>
+<h1 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h1><p>传递一个class属性列表，以传递绑定多个class值</p>
+<pre><code class="html">&lt;div v-bind:class=&quot;[{ active: isActive }, errorClass]&quot;&gt;&lt;/div&gt;</code></pre>
+<h1 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h1><pre><code class="html">&lt;div v-bind:style=&quot;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+data: {
+  activeColor: &#39;red&#39;,
+  fontSize: 30
+}
+&lt;/script&gt;</code></pre>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
                             
-
-<div class="list-group">
-    <p class="h4">共计 24 篇文章</p>
-    <hr>
-    
-        
-            
-            <p class="h5">2018</p>
-        
-        <a href="/2018/10/16/MTP综合管理技能提升培训（二）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（二）</span>
-            <span style="float: right;">10-16</span>
-        </a>
-    
-        
-        <a href="/2018/10/10/MTP综合管理技能提升培训（四）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（四）</span>
-            <span style="float: right;">10-10</span>
-        </a>
-    
-        
-        <a href="/2018/08/06/MTP综合管理技能提升培训（一）/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">MTP综合管理技能提升培训（一）</span>
-            <span style="float: right;">08-06</span>
-        </a>
-    
-        
-            
-            <p class="h5">2017</p>
-        
-        <a href="/2017/09/22/Zabbix-Server-配置优化/" class="list-group-item list-group-item-action">
-            <span class="archive-post-title">Zabbix Server 配置优化</span>
-            <span style="float: right;">09-22</span>
-        </a>
-    
-</div>
-
-<nav aria-label="index posts navigation">
-<ul class="pagination pg-blue justify-content-center mt-5">
-    
-        <li class="page-item">
-        <a class="page-link" href="/archives/page/2/">上一页</a>
-        </li>
-    
-    
-</ul>
-</nav>
-
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
         </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+    </div>
+</div>
+
     
 </main>
 
@@ -198,6 +202,11 @@
 <script src="/js/main.js"></script>
 <script src="/js/pageguard.min.js"></script>
 
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
 
     <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
     <script>
@@ -213,7 +222,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "归档&nbsp;",
+                "Vue-Class和Style绑定&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,

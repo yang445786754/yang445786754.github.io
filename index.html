@@ -106,6 +106,75 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2020/07/26/Vue-Class和Style绑定/">
+                <p class="h4 index-header">Vue-Class和Style绑定</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">对于 Class 和 Style 的属性值的绑定可以用v-bind 绑定，但是因为这两个属性的特殊性，在这同样的基础上，Vue 对其进行了增强
+对象语法给节点的class属性绑定一个对象，动态的切换class
+&lt;div v-bind:class=&quot;{ active: isActive }&quot;&gt;&lt;/div&gt;
+active 为需要绑定的属性值，isActive 为条件。当isActive 为true时将会为这个中的class增加一个active值
+数组语法传递一个class属性列表，以传递绑定多个class值
+&lt;div v-bind:class=&quot;[{ active: isActive }, errorClass]&quot;&gt;&lt;/div&gt;
+样式&lt;div v-bind:style=&quot;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+data: {
+  acti</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-26
+                    &nbsp;&nbsp;
+                    
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2020/07/26/Vue-计算和监听/">
+                <p class="h4 index-header">Vue-计算和监听</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">模板中js表达式计算&lt;div id=&quot;example&quot;&gt;
+  {{ message.split('').reverse().join('') }}
+&lt;/div&gt;
+将会监听message值如果有改变也将会使用同样的表达式更新数据
+computedcomputed 可以在Vue实例中定义computed属性，监听一个数据并计算出另一个值并返回。该值不应该在数据中定义初始化，如下方的例子，监听了message 变量，reversedMessage 将会根据message 变量的值进行计算。computed 将会监听方法中使用的变量。
+&lt;div id=&quot;example&quot;&gt;
+  &lt;p&gt;Original message: &quot;{{ message }}&quot;&lt;/p&gt;
+  &lt;p&gt;Computed reversed message: &quot;{{ reversedMessage }}&quot;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2020-07-26
+                    &nbsp;&nbsp;
+                    
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2020/07/26/Vue-语法/">
                 <p class="h4 index-header">Vue-语法</p>
                 <div class="index-excerpt">
@@ -502,111 +571,6 @@ class Stack:
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/12/算法-算法/">
-                <p class="h4 index-header">算法-算法</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">算法：即计算机处理信息的本质。解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。
-算法的特性
-输入
-输出
-有穷性：算法在有限步骤之内结束，而不是无线循环
-可行性：该方法可以被实现，在有限时间内完成
-确切性：每个步骤有确切的定义
-
-算法衡量时间复杂度执行算法所需要的计算工作量。百度百科上的定义：一般来说，计算机算法是问题规模n 的函数f(n)，算法的时间复杂度也因此记做。T(n)=Ο(f(n))因此，问题的规模n 越大，算法执行的时间的增长率与f(n) 的增长率正相关，称作渐进时间复杂度（Asymptotic Time Complexity）。
-计算时间复杂度
-基本操作，只有常数项，认为时间复杂程度为O(1)
-顺序结构，时间复杂度按照加法进行计算
-循环结构，时间复杂程度按照乘法计算
-分支结构，时间复杂程度按照取最大值计算
-取最高次项作为时间复杂度
-无特殊说明时间复杂度均为最坏时间复杂度
-
-评判O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-12
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/11/神经网络-Data-Compression-数据压缩降维/">
-                <p class="h4 index-header">神经网络-Data Compression 数据压缩降维</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">通常我们的数据集的特征会有很多，有部分特征会产生冗余，可以使用降维的方式去降低特征的维度，将3D的特征降维成为2D将2D降低成为1D。想法是，在避免丢失信息的情况下将多维度数据投影到一条直线或一个平面上，这条直线并不是坐标轴。这样可以加快我们后面算法的运算速度。
-
-主成分主成分分析可以在训练集中识别出那一条轴对差异性的贡献度最高，
-如何找到主成分有一种标准举证分解技术，叫做奇异值分解。他会将训练集矩阵X分解成为三个矩阵的点积U·Sigma·V^T,其中V^T包含我们所想要的所有主成分
-Principal Componet Analysis (PCA)
-获取数据x1,x2,x3…xm
-先对数据进行均值归一化,计算均值，然后使每个样本数据减去均值，使用xi - uj,uj为均值
-
-在低维子空间中寻找一个向量或者一个面来投影我们所有的数据点
-计算”协方差”convariance matrix 获取主成分  
-  
-我们可以使用munpy中的svd()函数获取训练集中的所有主成分，下列示例我们获取主成分中的前两个主成分
-
-
-
-X_centered = X - X.mean(axis = 0)
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-11
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
-                        
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a>&nbsp;
                         
                     
                 </div>
