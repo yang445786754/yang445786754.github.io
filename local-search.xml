@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Vue-计算和监听</title>
+      <link href="undefined2020/07/29/Vue-%E8%AE%A1%E7%AE%97%E5%92%8C%E7%9B%91%E5%90%AC/"/>
+      <url>2020/07/29/Vue-%E8%AE%A1%E7%AE%97%E5%92%8C%E7%9B%91%E5%90%AC/</url>
+      
+        <content type="html"><![CDATA[<h1 id="模板中js表达式计算"><a href="#模板中js表达式计算" class="headerlink" title="模板中js表达式计算"></a>模板中js表达式计算</h1><pre><code class="html">&lt;div id=&quot;example&quot;&gt;  {{ message.split('').reverse().join('') }}&lt;/div&gt;</code></pre><p>将会监听message值如果有改变也将会使用同样的表达式更新数据</p><h1 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h1><p><code>computed</code> 可以在Vue实例中定义computed属性，监听一个数据并计算出另一个值并返回。该值不应该在数据中定义初始化，如下方的例子，监听了message 变量，reversedMessage 将会根据message 变量的值进行计算。computed 将会监听方法中使用的变量。</p><pre><code class="html">&lt;div id=&quot;example&quot;&gt;  &lt;p&gt;Original message: &quot;{{ message }}&quot;&lt;/p&gt;  &lt;p&gt;Computed reversed message: &quot;{{ reversedMessage }}&quot;&lt;/p&gt;&lt;/div&gt;&lt;script&gt;var vm = new Vue({el: &#39;#example&#39;,data: {  message: &#39;Hello&#39;},computed: {  // 计算属性的 getter  reversedMessage: function () {    // `this` 指向 vm 实例    return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;)  }}})&lt;/script&gt;</code></pre><h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><p>监听Vue实例中数据的变动</p><pre><code class="html">&lt;div id=&quot;demo&quot;&gt;{{ fullName }}&lt;/div&gt;&lt;script&gt;var vm = new Vue({el: &#39;#demo&#39;,data: {  firstName: &#39;Foo&#39;,  lastName: &#39;Bar&#39;,  fullName: &#39;Foo Bar&#39;},watch: {  firstName: function (newValue, oldValue) {    this.fullName = newValue + &#39; &#39; + this.lastName  },  lastName: function (newValue, oldValue) {    this.fullName = this.firstName + &#39; &#39; + newValue  }}})&lt;/script&gt;</code></pre><p>需要根据场景使用，上述的例子中监听了两个数据都是为了 计算出 fullName ，这种场景使用computed 更优</p><h1 id="computed-setter"><a href="#computed-setter" class="headerlink" title="computed setter"></a>computed setter</h1><p>在默认情况下，compute 不做特殊处理的情况下只有get方法，会监听get方法中的数据对，计算并对变量做出更改</p><p>可以增加一个set方法，这个方法将会在在该变量被修改的情况下触发</p><pre><code class="html">&lt;script&gt;computed: {  fullName: {    // getter    get: function () {      return this.firstName + &#39; &#39; + this.lastName    },    // setter    set: function (newValue) {      var names = newValue.split(&#39; &#39;)      this.firstName = names[0]      this.lastName = names[names.length - 1]    }  }}&lt;/script&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Vue-Class和Style绑定</title>
       <link href="undefined2020/07/26/Vue-Class%E5%92%8CStyle%E7%BB%91%E5%AE%9A/"/>
       <url>2020/07/26/Vue-Class%E5%92%8CStyle%E7%BB%91%E5%AE%9A/</url>
@@ -11,19 +40,22 @@
         <content type="html"><![CDATA[<p>对于 Class 和 Style 的属性值的绑定可以用v-bind 绑定，但是因为这两个属性的特殊性，在这同样的基础上，Vue 对其进行了增强</p><h1 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h1><p>给节点的class属性绑定一个对象，动态的切换class</p><pre><code class="html">&lt;div v-bind:class=&quot;{ active: isActive }&quot;&gt;&lt;/div&gt;</code></pre><p><code>active</code> 为需要绑定的属性值，<code>isActive</code> 为条件。当<code>isActive</code> 为<code>true</code>时将会为这个<div>中的class增加一个<code>active</code>值</div></p><h1 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h1><p>传递一个class属性列表，以传递绑定多个class值</p><pre><code class="html">&lt;div v-bind:class=&quot;[{ active: isActive }, errorClass]&quot;&gt;&lt;/div&gt;</code></pre><h1 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h1><pre><code class="html">&lt;div v-bind:style=&quot;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&quot;&gt;&lt;/div&gt;&lt;script&gt;data: {  activeColor: &#39;red&#39;,  fontSize: 30}&lt;/script&gt;</code></pre>]]></content>
       
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Vue-计算和监听</title>
-      <link href="undefined2020/07/26/Vue-%E8%AE%A1%E7%AE%97%E5%92%8C%E7%9B%91%E5%90%AC/"/>
-      <url>2020/07/26/Vue-%E8%AE%A1%E7%AE%97%E5%92%8C%E7%9B%91%E5%90%AC/</url>
-      
-        <content type="html"><![CDATA[<h1 id="模板中js表达式计算"><a href="#模板中js表达式计算" class="headerlink" title="模板中js表达式计算"></a>模板中js表达式计算</h1><pre><code class="html">&lt;div id=&quot;example&quot;&gt;  {{ message.split('').reverse().join('') }}&lt;/div&gt;</code></pre><p>将会监听message值如果有改变也将会使用同样的表达式更新数据</p><h1 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h1><p><code>computed</code> 可以在Vue实例中定义computed属性，监听一个数据并计算出另一个值并返回。该值不应该在数据中定义初始化，如下方的例子，监听了message 变量，reversedMessage 将会根据message 变量的值进行计算。computed 将会监听方法中使用的变量。</p><pre><code class="html">&lt;div id=&quot;example&quot;&gt;  &lt;p&gt;Original message: &quot;{{ message }}&quot;&lt;/p&gt;  &lt;p&gt;Computed reversed message: &quot;{{ reversedMessage }}&quot;&lt;/p&gt;&lt;/div&gt;&lt;script&gt;var vm = new Vue({el: &#39;#example&#39;,data: {  message: &#39;Hello&#39;},computed: {  // 计算属性的 getter  reversedMessage: function () {    // `this` 指向 vm 实例    return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;)  }}})&lt;/script&gt;</code></pre><h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><p>监听Vue实例中数据的变动</p><pre><code class="html">&lt;div id=&quot;demo&quot;&gt;{{ fullName }}&lt;/div&gt;&lt;script&gt;var vm = new Vue({el: &#39;#demo&#39;,data: {  firstName: &#39;Foo&#39;,  lastName: &#39;Bar&#39;,  fullName: &#39;Foo Bar&#39;},watch: {  firstName: function (newValue, oldValue) {    this.fullName = newValue + &#39; &#39; + this.lastName  },  lastName: function (newValue, oldValue) {    this.fullName = this.firstName + &#39; &#39; + newValue  }}})&lt;/script&gt;</code></pre><p>需要根据场景使用，上述的例子中监听了两个数据都是为了 计算出 fullName ，这种场景使用computed 更优</p><h1 id="computed-setter"><a href="#computed-setter" class="headerlink" title="computed setter"></a>computed setter</h1><p>在默认情况下，compute 不做特殊处理的情况下只有get方法，会监听get方法中的数据对，计算并对变量做出更改</p><p>可以增加一个set方法，这个方法将会在在该变量被修改的情况下触发</p><pre><code class="html">&lt;script&gt;computed: {  fullName: {    // getter    get: function () {      return this.firstName + &#39; &#39; + this.lastName    },    // setter    set: function (newValue) {      var names = newValue.split(&#39; &#39;)      this.firstName = names[0]      this.lastName = names[names.length - 1]    }  }}&lt;/script&gt;</code></pre>]]></content>
+      <categories>
+          
+          <category> Vue </category>
+          
+          <category> 前端 </category>
+          
+      </categories>
       
       
+        <tags>
+            
+            <tag> Vue </tag>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
       
     </entry>
     
