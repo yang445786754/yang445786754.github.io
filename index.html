@@ -106,6 +106,44 @@
         
         
         <div class="col-12 col-md-8 m-auto">
+            <a href="/2020/08/01/Vue-组件/">
+                <p class="h4 index-header">Vue-组件</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Vue 的核心思想就是组件化编程，只需要编写无数个小而可以复用的小组件，再将这些组件组合到一起，就能完成大项目。
+基础组件组件就是一个带名字且可以复用的Vue实例。
+&lt;script&gt;
+// 定义一个名为 button-counter 的新组件
+Vue.component(&#39;button-counter&#39;, {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: &#39;&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me {{ count }} times.&lt;/button&gt;&#39;
+})
+&lt;/script&gt;
+每个组件都有自己的生命周期和自己的钩子函数。
+组件通讯通过props可以向组件传递数据，在组件使用v-bind可以绑定传输数据,传递的数据不仅仅可以用变量，还能使用数组、对象等，所以我们在传输很多数据的时候可以直接使用对象进行传输。这样仅仅能够让我们从父组件向子组件传</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2020-08-01
+                    &nbsp;&nbsp;
+                    
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
             <a href="/2020/07/29/Vue-计算和监听/">
                 <p class="h4 index-header">Vue-计算和监听</p>
                 <div class="index-excerpt">
@@ -547,50 +585,6 @@ class Stack:
             
                 <div>
                     <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-23
-                    &nbsp;&nbsp;
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
-                        
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>
-                            &nbsp;&nbsp;
-                        
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/12/数据结构-链表/">
-                <p class="h4 index-header">数据结构-链表</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。
-我每次都会先在百度百科上搜下定义
-链表和顺序表一样，是顺序表，但不是顺序存储的结构，在每个节点（数据存储单元）里存放下一个节点的位置信息（内存地址）。
-链表可以充分利用计算机内存空间，实现灵活的内存动态管理
-单向链表每个节点包含两个域，信息域（元素域）和链接域。尾节点的链接域为空
-实现使用python代码实现，并实现部分操作功能，链表是为了更灵活的管理零散非连续的内存空间。
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-
-# @File</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-12
                     &nbsp;&nbsp;
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
