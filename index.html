@@ -14,7 +14,7 @@
     <meta name="description" content="杨乘 Blog">
     <meta name="author" content="Tony">
     <meta name="keywords" content>
-    <title>分类 ~ Tony&#39;s Blog</title>
+    <title>Tony&#39;s Blog</title>
     <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
     <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
@@ -31,7 +31,7 @@
 
 
 <body>
-<header style="height: 80vh;">
+<header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
 <div class="container">
     <a class="navbar-brand" href="/">&nbsp;<strong>Tony&#39;s Blog</strong>&nbsp;</a>
@@ -77,7 +77,7 @@
 
 </nav>
     <div class="view intro-2"
-         style="background: url('/img/archive.jpg')no-repeat center center;background-size: cover;">
+         style="background: url('/img/index.jpg')no-repeat center center;background-size: cover;">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
                 <div class="container text-center white-text wow fadeInUp">
@@ -101,7 +101,61 @@
                         <div class="col-12 col-md-10 m-auto">
                             
 
-<ul class="category-tree-list"><li class="category-tree-list-item"><a class="category-tree-list-link" href="/categories/机器学习/">机器学习</a><span class="category-tree-list-count">1</span><ul class="category-tree-list-child"><li class="category-tree-list-item"><a class="category-tree-list-link" href="/categories/机器学习/scikitlearn/">scikitlearn</a><span class="category-tree-list-count">1</span></li></ul></li></ul>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/08/23/MachineLearning-with-SK-AND-TF-1-端到端的机器学习项目/">
+                <p class="h4 index-header">MachineLearning with SK AND TF (1_端到端的机器学习项目)</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1"># download dataset
+import os
+import tarfile
+import urllib
+
+DOWNLOAD_ROOT = &quot;http://raw.githubusercontent.com/ageron/handson-ml/master/&quot;
+HOUSING_PATH = &quot;datasets/housing&quot;
+HOUSING_URL = DOWNLOAD_ROOT + HOUSING_PATH + &quot;/housing.tgz&quot;
+print(HOUSING_URL)
+
+def fetch_housing_data(housing_url = HOUSING_URL,housing_path = HOUSING_PATH):
+    if not os.path.isdir(housing_path):
+        os.makedirs(housing_path)
+    tgz_path = os.path.join(housing_path,&quot;housing.tgz&quot;)
+ </div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-08-23
+                    &nbsp;&nbsp;
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-inbox"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                            &nbsp;&nbsp;
+                        
+                            <a href="/categories/scikitlearn">scikitlearn</a>
+                            &nbsp;&nbsp;
+                        
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                            <a href="/tags/BOOK">BOOK</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
 
 
                         </div>
@@ -169,7 +223,7 @@
         var typed = new Typed('#subtitle', {
             strings: [
                 '  ',
-                "分类&nbsp;",
+                "Record Life, Article, Tech</br>King of Destiny.&nbsp;",
             ],
             cursorChar: "_",
             typeSpeed: 70,
